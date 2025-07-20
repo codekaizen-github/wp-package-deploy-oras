@@ -44,8 +44,6 @@ for key in $(echo "$PLUGIN_META" | jq -r 'keys[]'); do
     fi
 done
 
-echo "Pushing plugin zip file with annotations: ${ANNOTATION_ARGS[*]}"
-
 # Login to registry
 oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$(echo $IMAGE_NAME | cut -d'/' -f1)"
 

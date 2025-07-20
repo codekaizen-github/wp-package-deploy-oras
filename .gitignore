@@ -1,3 +1,4 @@
 .env
 /vendor/
 plugin.zip
+test

@@ -3,7 +3,7 @@ FROM php:8.2-cli
 
 # Install unzip, git, curl, composer, and oras
 RUN apt-get update \
-    && apt-get install -y unzip git curl libzip-dev \
+    && apt-get install -y unzip git curl libzip-dev jq \
     && docker-php-ext-install zip \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && curl -LO https://github.com/oras-project/oras/releases/download/v1.1.0/oras_1.1.0_linux_amd64.tar.gz \
