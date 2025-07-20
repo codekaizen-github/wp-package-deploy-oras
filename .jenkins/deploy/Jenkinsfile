@@ -68,7 +68,7 @@ pipeline {
                                 withCredentials([string(credentialsId: GHCR_CREDENTIALS_ID, variable: 'GHCR_PAT')]) {
                                     sh '''
                                     echo "${GHCR_PAT}" | docker login "${GHCR_REGISTRY}" -u "${GHCR_USER}" --password-stdin
-                                    docker build --label "org.opencontainers.image.source=${LABEL_ORG_OPENCONTAINERS_IMAGE_SOURCE}" --target ${DOCKER_STAGE} -t ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-${DOCKER_STAGE}-${ARCH} .
+                                    docker build --label "org.opencontainers.image.source=${LABEL_ORG_OPENCONTAINERS_IMAGE_SOURCE}" --target ${DOCKER_STAGE} --build-arg ARCH=${ARCH} -t ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-${DOCKER_STAGE}-${ARCH} .
                                     docker image inspect ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-${DOCKER_STAGE}-${ARCH}
                                     docker push ${GHCR_REGISTRY}/${GHCR_REPOSITORY}:${DYNAMIC_TAG_NAME}-${DOCKER_STAGE}-${ARCH}
                                     '''
