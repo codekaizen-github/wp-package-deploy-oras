@@ -2,6 +2,7 @@
 FROM php:8.2-cli AS base
 ARG ORAS_VERSION=1.2.2
 ARG ARCH=amd64
+ENV PHP_MEMORY_LIMIT=512M
 
 # Install unzip, git, curl, composer, and oras
 RUN apt-get update \

@@ -37,7 +37,7 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Parse plugin metadata using wp-package-parser script
-PLUGIN_META=$(php "$SCRIPT_DIR/src/get_plugin_metadata.php" "$PLUGIN_ZIP_PATH")
+PLUGIN_META=$(php -d memory_limit="${PHP_MEMORY_LIMIT}" "$SCRIPT_DIR/src/get_plugin_metadata.php" "$PLUGIN_ZIP_PATH")
 
 # Prepare annotation args for oras
 ANNOTATION_ARGS=()
