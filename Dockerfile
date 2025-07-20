@@ -1,5 +1,5 @@
 # Dockerfile for WordPress Plugin Registry ORAS Plugin Deploy
-FROM php:8.2-cli
+FROM php:8.2-cli AS base
 
 # Install unzip, git, curl, composer, and oras
 RUN apt-get update \
