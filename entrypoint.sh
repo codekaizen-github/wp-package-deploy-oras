@@ -37,17 +37,7 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Parse plugin metadata using wp-package-parser script
-PLUGIN_META=$(php -d memory_limit="${PHP_MEMORY_LIMIT:-512M}" "$SCRIPT_DIR/src/get_plugin_metadata.php" "$PLUGIN_ZIP_PATH")
-
-# Prepare annotation args for oras
-ANNOTATION_ARGS=()
-for key in $(echo "$PLUGIN_META" | jq -r 'keys[]'); do
-    value=$(echo "$PLUGIN_META" | jq -r --arg k "$key" '.[$k]')
-    # Only add if value is not empty
-    if [ -n "$value" ] && [ "$value" != "null" ]; then
-        ANNOTATION_ARGS+=("--annotation" "$ANNOTATION_PREFIX.$key=$value")
-    fi
-done
+PLUGIN_METADATA=$(php -d memory_limit="${PHP_MEMORY_LIMIT:-512M}" "$SCRIPT_DIR/src/get_plugin_metadata.php" "$PLUGIN_ZIP_PATH")
 
 # Login to registry
 oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$(echo $IMAGE_NAME | cut -d'/' -f1)"
@@ -62,6 +52,6 @@ pushd "$PLUGIN_ZIP_DIR" > /dev/null
 # Push the zip file with annotations using only the filename (relative path)
 oras push "$IMAGE_NAME" \
     "${PLUGIN_ZIP_FILE}:application/zip" \
-    "${ANNOTATION_ARGS[@]}"
+    --annotation "$ANNOTATION_PREFIX.plugin-metadata=$PLUGIN_METADATA" \
 
 popd > /dev/null
