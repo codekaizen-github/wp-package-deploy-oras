@@ -37,7 +37,7 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Parse plugin metadata using wp-package-parser script
-PLUGIN_META=$(php -d memory_limit="${PHP_MEMORY_LIMIT}" "$SCRIPT_DIR/src/get_plugin_metadata.php" "$PLUGIN_ZIP_PATH")
+PLUGIN_META=$(php -d memory_limit="${PHP_MEMORY_LIMIT:-512M}" "$SCRIPT_DIR/src/get_plugin_metadata.php" "$PLUGIN_ZIP_PATH")
 
 # Prepare annotation args for oras
 ANNOTATION_ARGS=()
@@ -52,7 +52,16 @@ done
 # Login to registry
 oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$(echo $IMAGE_NAME | cut -d'/' -f1)"
 
-# Push the zip file with annotations
+# Get directory and filename from PLUGIN_ZIP_PATH
+PLUGIN_ZIP_DIR="$(dirname "$PLUGIN_ZIP_PATH")"
+PLUGIN_ZIP_FILE="$(basename "$PLUGIN_ZIP_PATH")"
+
+# Change to the directory containing the zip file
+pushd "$PLUGIN_ZIP_DIR" > /dev/null
+
+# Push the zip file with annotations using only the filename (relative path)
 oras push "$IMAGE_NAME" \
-    "${PLUGIN_ZIP_PATH}:application/zip" \
+    "${PLUGIN_ZIP_FILE}:application/zip" \
     "${ANNOTATION_ARGS[@]}"
+
+popd > /dev/null
