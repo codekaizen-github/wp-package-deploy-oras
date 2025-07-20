@@ -3,6 +3,7 @@ set -e
 set -x
 
 # Required ENV variables:
+#   PLUGIN_SLUG: Unique slug for the plugin (e.g. wp-github-gist-block)
 #   PLUGIN_ZIP_PATH: Path to the plugin zip file
 #   ANNOTATION_PREFIX: Prefix for annotation keys (default: org.codekaizen-github.wordpress-plugin-registry-oras)
 #   REGISTRY_USERNAME: Registry username
@@ -11,6 +12,10 @@ set -x
 
 ANNOTATION_PREFIX="${ANNOTATION_PREFIX:-org.codekaizen-github.wordpress-plugin-registry-oras}"
 
+if [ -z "$PLUGIN_SLUG" ]; then
+    echo "PLUGIN_SLUG env variable is required!" >&2
+    exit 1
+fi
 if [ -z "$PLUGIN_ZIP_PATH" ]; then
     echo "PLUGIN_ZIP_PATH env variable is required!" >&2
     exit 1
