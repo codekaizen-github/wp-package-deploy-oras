@@ -27,14 +27,11 @@ if [ -z "$REGISTRY_REF" ]; then
     exit 1
 fi
 
-# Parse plugin metadata using wp-package-parser
-PLUGIN_META=$(php -r '
-require "vendor/autoload.php";
-use RenVentura\WpPackageParser\PluginPackageParser;
-$parser = new PluginPackageParser(getenv("PLUGIN_ZIP_PATH"));
-$meta = $parser->get_plugin_data();
-echo json_encode($meta);
-')
+# Get the directory of this script for relative references
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Parse plugin metadata using wp-package-parser script
+PLUGIN_META=$(php "$SCRIPT_DIR/src/get_plugin_metadata.php" "$PLUGIN_ZIP_PATH")
 
 # Prepare annotation args for oras
 ANNOTATION_ARGS=()

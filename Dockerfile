@@ -10,14 +10,17 @@ RUN apt-get update \
     && mv oras /usr/local/bin/oras \
     && rm oras_1.1.0_linux_amd64.tar.gz
 
+
 # Create app directory
-WORKDIR /app
+WORKDIR /wordpress-plugin-registry-oras-plugin-deploy
 
-# Copy entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY composer.json composer.lock ./
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
 
-# Install wp-package-parser
-RUN composer require renventura/wp-package-parser
+# Copy entrypoint script and src directory
+COPY src ./src
+COPY entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/wordpress-plugin-registry-oras-plugin-deploy/entrypoint.sh"]
