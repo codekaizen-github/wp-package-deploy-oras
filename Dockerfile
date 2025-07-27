@@ -1,5 +1,5 @@
 # Dockerfile for WordPress Plugin Registry ORAS Plugin Deploy
-FROM php:8.2-cli AS base
+FROM php:8.2-cli AS final
 ARG ORAS_VERSION=1.2.2
 ARG ARCH=amd64
 ENV PHP_MEMORY_LIMIT=512M
@@ -16,7 +16,7 @@ RUN apt-get update \
 
 
 # Create app directory
-WORKDIR /wordpress-plugin-registry-oras-plugin-deploy
+WORKDIR /wp-plugin-deploy-oras-plugin-deploy
 
 COPY composer.json composer.lock ./
 # Install PHP dependencies
@@ -27,4 +27,4 @@ COPY src ./src
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
-ENTRYPOINT ["/wordpress-plugin-registry-oras-plugin-deploy/entrypoint.sh"]
+ENTRYPOINT ["/wp-plugin-deploy-oras-plugin-deploy/entrypoint.sh"]

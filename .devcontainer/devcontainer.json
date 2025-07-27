@@ -12,8 +12,8 @@
 		"--env-file",
 		"./.env"
 	],
-	"workspaceFolder": "/wordpress-plugin-registry-oras-plugin-deploy",
-	"workspaceMount": "source=${localWorkspaceFolder},target=/wordpress-plugin-registry-oras-plugin-deploy,type=bind,consistency=cached",
+	"workspaceFolder": "/wp-plugin-deploy-oras-plugin-deploy",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/wp-plugin-deploy-oras-plugin-deploy,type=bind,consistency=cached",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

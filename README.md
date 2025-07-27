@@ -1,1 +1,1 @@
-# wordpress-plugin-registry-oras-plugin-deploy
+# wp-plugin-deploy-oras-plugin-deploy

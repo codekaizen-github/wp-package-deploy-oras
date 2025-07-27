@@ -1,5 +1,5 @@
 {
-    "name": "codekaizen-github/wordpress-plugin-registry-oras-plugin-deploy",
+    "name": "codekaizen-github/wp-plugin-deploy-oras-plugin-deploy",
     "type": "project",
     "require": {
         "renventura/wp-package-parser": "^1.0"
