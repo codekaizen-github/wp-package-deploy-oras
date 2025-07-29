@@ -11,8 +11,5 @@ if ($argc < 2) {
 $zipPath = $argv[1];
 $parser = new WPPackage($zipPath);
 $meta = $parser->getMetaData();
-# override slug if provided
-if (!empty($_ENV['PLUGIN_SLUG'])) {
-    $meta['slug'] = $_ENV['PLUGIN_SLUG'];
-}
+
 echo json_encode($meta);
