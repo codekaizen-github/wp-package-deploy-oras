@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
-use RenVentura\WPPackageParser\WPPackage;
+use AndrewJDawes\WPPackageParser\WPPackage;
 
 if ($argc < 2) {
     fwrite(STDERR, "Usage: php get_plugin_metadata.php <plugin-zip-path>\n");

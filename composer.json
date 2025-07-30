@@ -1,9 +1,6 @@
 {
     "name": "codekaizen-github/wp-plugin-deploy-oras-plugin-deploy",
     "type": "project",
-    "require": {
-        "renventura/wp-package-parser": "^1.0"
-    },
     "autoload": {
         "psr-4": {
             "CodekaizenGithub\\WordpressPluginRegistryOrasPluginDeploy\\": "src/"
@@ -14,5 +11,8 @@
             "name": "Andrew Dawes",
             "email": "andrewjamesdawes@gmail.com"
         }
-    ]
+    ],
+    "require": {
+        "andrewjdawes/wp-package-parser": "^1.3"
+    }
 }
