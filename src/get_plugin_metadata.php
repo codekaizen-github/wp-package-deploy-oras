@@ -9,7 +9,7 @@ if ($argc < 2) {
 }
 
 $zipPath = $argv[1];
-$parser = new WPPackage($zipPath);
+$parser = new WPPackage($zipPath, 'plugin', false);
 $meta = $parser->getMetaData();
 
 echo json_encode($meta);
