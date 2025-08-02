@@ -1,4 +1,4 @@
-# Dockerfile for WordPress Plugin Registry ORAS Plugin Deploy
+# Dockerfile for WordPress Package Registry ORAS Package Deploy
 FROM php:8.2-cli AS final
 ARG ORAS_VERSION=1.2.2
 ARG ARCH=amd64
@@ -16,7 +16,7 @@ RUN apt-get update \
 
 
 # Create app directory
-WORKDIR /wp-plugin-deploy-oras-plugin-deploy
+WORKDIR /wp-package-deploy-oras
 
 COPY composer.json composer.lock ./
 # Install PHP dependencies
@@ -27,4 +27,4 @@ COPY src ./src
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
-ENTRYPOINT ["/wp-plugin-deploy-oras-plugin-deploy/entrypoint.sh"]
+ENTRYPOINT ["/wp-package-deploy-oras/entrypoint.sh"]

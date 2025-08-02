@@ -1,1 +1,1 @@
-# wp-plugin-deploy-oras-plugin-deploy
+# wp-package-deploy-oras

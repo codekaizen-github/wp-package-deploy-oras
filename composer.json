@@ -1,9 +1,9 @@
 {
-    "name": "codekaizen-github/wp-plugin-deploy-oras-plugin-deploy",
+    "name": "codekaizen-github/wp-package-deploy-oras",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "CodekaizenGithub\\WordpressPluginRegistryOrasPluginDeploy\\": "src/"
+            "CodekaizenGithub\\WordpressPackageDeployOras\\": "src/"
         }
     },
     "authors": [
