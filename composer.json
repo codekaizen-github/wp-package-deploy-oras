@@ -13,6 +13,6 @@
         }
     ],
     "require": {
-        "andrewjdawes/wp-package-parser": "^1.4"
+        "andrewjdawes/wp-package-parser": "v1.5.0"
     }
 }

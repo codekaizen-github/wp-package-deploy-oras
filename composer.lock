@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e68e442bfb04262d705656d8e1f21fd8",
+    "content-hash": "81e0204920ecb019fbaf0df3b7ec3ed9",
     "packages": [
         {
             "name": "andrewjdawes/wp-package-parser",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AndrewJDawes/wp-package-parser.git",
-                "reference": "aa37fec346d3f4fcb701af49cac933fa30d8331b"
+                "reference": "e69cb4e9a4ae0424dcdfe81d577d9d9ac6c6a735"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AndrewJDawes/wp-package-parser/zipball/aa37fec346d3f4fcb701af49cac933fa30d8331b",
-                "reference": "aa37fec346d3f4fcb701af49cac933fa30d8331b",
+                "url": "https://api.github.com/repos/AndrewJDawes/wp-package-parser/zipball/e69cb4e9a4ae0424dcdfe81d577d9d9ac6c6a735",
+                "reference": "e69cb4e9a4ae0424dcdfe81d577d9d9ac6c6a735",
                 "shasum": ""
             },
             "require": {
@@ -46,9 +46,9 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/AndrewJDawes/wp-package-parser/tree/v1.4.0"
+                "source": "https://github.com/AndrewJDawes/wp-package-parser/tree/v1.5.0"
             },
-            "time": "2025-08-02T16:57:01+00:00"
+            "time": "2025-08-05T01:10:46+00:00"
         },
         {
             "name": "erusev/parsedown",
