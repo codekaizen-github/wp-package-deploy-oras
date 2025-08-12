@@ -3,8 +3,6 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use AndrewJDawes\WPPackageParser\WPPackage;
 
-echo json_encode($meta);
-
 $parser = new WPPackage(getenv('PACKAGE_ZIP_PATH'), getenv('PACKAGE_TYPE') ?: 'plugin', getenv('PARSE_README') ?: false);
 $meta = $parser->getMetaData();
 
