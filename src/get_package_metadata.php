@@ -12,6 +12,9 @@ if ($overridesJson) {
     $overrides = json_decode($overridesJson, true);
     if (json_last_error() === JSON_ERROR_NONE && is_array($overrides)) {
         $meta = deep_merge($meta, $overrides);
+    } else {
+        echo 'Invalid WP_PACKAGE_METADATA_OVERRIDES JSON: ' . json_last_error_msg();
+        exit(1);
     }
 }
 

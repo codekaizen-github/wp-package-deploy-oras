@@ -31,6 +31,7 @@ fi
 # Get the directory of this script for relative references
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+echo "WP_PACKAGE_METADATA_OVERRIDES: $WP_PACKAGE_METADATA_OVERRIDES";
 # Parse plugin metadata using wp-package-parser script
 PACKAGE_METADATA=$(php -d memory_limit="${PHP_MEMORY_LIMIT:-512M}" "$SCRIPT_DIR/src/get_package_metadata.php")
 
