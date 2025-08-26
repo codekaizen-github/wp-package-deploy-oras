@@ -2,6 +2,8 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use AndrewJDawes\WPPackageParser\WPPackage;
+use CodeKaizen\WPPackageAutoupdater\Client\ORASHub\Model\ORASHubPackageMetaFromObjectPlugin;
+use CodeKaizen\WPPackageAutoupdater\Client\ORASHub\Model\ORASHubPackageMetaFromObjectTheme;
 
 $parser = new WPPackage(getenv('PACKAGE_ZIP_PATH'), getenv('PACKAGE_TYPE') ?: 'plugin', getenv('PARSE_README') ?: false);
 $meta = $parser->getMetaData();
@@ -18,7 +20,26 @@ if ($overridesJson) {
     }
 }
 
-echo json_encode($meta);
+$metaObject = json_decode(json_encode($meta));
+$model = null;
+switch ($parser->getType()) {
+    case 'plugin':
+        $model = new ORASHubPackageMetaFromObjectPlugin($metaObject);
+        break;
+    case 'theme':
+        $model = new ORASHubPackageMetaFromObjectTheme($metaObject);
+        break;
+    default:
+        echo 'Unknown package type: ' . $parser->getType();
+        exit(1);
+}
+
+if (null === $model) {
+    echo 'Unable to construct model';
+    exit(1);
+}
+
+echo json_encode($model);
 
 // Deep merge helper: merges $b into $a, favoring $b's values
 function deep_merge(array $a, array $b): array
