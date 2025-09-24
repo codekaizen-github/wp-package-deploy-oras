@@ -1,5 +1,6 @@
 # Dockerfile for WordPress Package Registry ORAS Package Deploy
-FROM php:8.2-cli AS final
+ARG PHP_VERSION=8.1
+FROM php:${PHP_VERSION}-cli AS final
 ARG ORAS_VERSION=1.2.2
 ARG ARCH=amd64
 ENV PHP_MEMORY_LIMIT=512M
