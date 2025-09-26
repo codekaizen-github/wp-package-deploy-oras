@@ -33,7 +33,10 @@
     },
     "require": {
         "php": "^8.1",
-        "respect/validation": "^2.4"
+        "respect/validation": "^2.4",
+        "codekaizen/wp-package-meta-provider-contract": "dev-main",
+        "monolog/monolog": "^3.9",
+        "codekaizen/wp-package-meta-provider-local": "dev-main"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.1",
