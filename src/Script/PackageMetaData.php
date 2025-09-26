@@ -1,6 +1,18 @@
 <?php
+/**
+ * Script to get the package meta as JSON.
+ *
+ * @package CodekaizenGithub\WPPackageDeployORAS
+ */
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Script;
+
+use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1;
+use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryV1;
+use Monolog\Handler\StreamHandler;
+use Monolog\Level;
+use Monolog\Logger;
+use UnexpectedValueException;
 
 /**
  * Undocumented class
@@ -10,66 +22,37 @@ class PackageMetaData {
 	 * Undocumented function
 	 *
 	 * @return void
+	 * @throws UnexpectedValueException On unexpected values.
 	 */
 	public static function main(): void {
-		echo 'hi';
+
+		$logger = new Logger( 'cli' );
+		$logger->pushHandler( new StreamHandler( 'php://stdout', Level::Info ) );
+		$logger->pushHandler( new StreamHandler( 'php://stderr', Level::Warning ) );
+		$filePath    = getenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH' );
+		$packageType = getenv( 'WP_PACKAGE_TYPE' );
+		switch ( $packageType ) {
+			case 'plugin':
+				$provider = new PluginPackageMetaProviderFactoryV1( $filePath, $logger );
+				break;
+			case 'theme':
+				$provider = new ThemePackageMetaProviderFactoryV1( $filePath, $logger );
+				break;
+			case false:
+				throw new UnexpectedValueException( 'WP_PACKAGE_TYPE is required' );
+			default:
+				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message not displayed to end users.
+				throw new UnexpectedValueException( 'Invalid WP_PACKAGE_TYPE: ' . $packageType );
+		}
+
+		if ( null === $provider ) {
+			throw new UnexpectedValueException( 'Unable to construct provider' );
+		}
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
+		echo json_encode( $provider );
 	}
 }
 
 if ( php_sapi_name() === 'cli' && realpath( $argv[0] ) === __FILE__ ) {
 	PackageMetaData::main();
 }
-
-
-// use AndrewJDawes\WPPackageParser\WPPackage;
-// use CodeKaizen\WPPackageAutoupdater\Client\ORASHub\Model\ORASHubPackageMetaFromObjectPlugin;
-// use CodeKaizen\WPPackageAutoupdater\Client\ORASHub\Model\ORASHubPackageMetaFromObjectTheme;
-
-// $parser = new WPPackage(getenv('PACKAGE_ZIP_PATH'), getenv('PACKAGE_TYPE') ?: 'plugin', getenv('PARSE_README') ?: false);
-// $meta = $parser->getMetaData();
-
-// // Handle WP_PACKAGE_METADATA_OVERRIDES env variable (optional JSON string)
-// $overridesJson = getenv('WP_PACKAGE_METADATA_OVERRIDES');
-// if ($overridesJson) {
-// $overrides = json_decode($overridesJson, true);
-// if (json_last_error() === JSON_ERROR_NONE && is_array($overrides)) {
-// $meta = deep_merge($meta, $overrides);
-// } else {
-// echo 'Invalid WP_PACKAGE_METADATA_OVERRIDES JSON: ' . json_last_error_msg();
-// exit(1);
-// }
-// }
-
-// $metaObject = json_decode(json_encode($meta));
-// $model = null;
-// switch ($parser->getType()) {
-// case 'plugin':
-// $model = new ORASHubPackageMetaFromObjectPlugin($metaObject);
-// break;
-// case 'theme':
-// $model = new ORASHubPackageMetaFromObjectTheme($metaObject);
-// break;
-// default:
-// echo 'Unknown package type: ' . $parser->getType();
-// exit(1);
-// }
-
-// if (null === $model) {
-// echo 'Unable to construct model';
-// exit(1);
-// }
-
-// echo json_encode($model);
-
-// // Deep merge helper: merges $b into $a, favoring $b's values
-// function deep_merge(array $a, array $b): array
-// {
-// foreach ($b as $key => $value) {
-// if (array_key_exists($key, $a) && is_array($a[$key]) && is_array($value)) {
-// $a[$key] = deep_merge($a[$key], $value);
-// } else {
-// $a[$key] = $value;
-// }
-// }
-// return $a;
-// }
