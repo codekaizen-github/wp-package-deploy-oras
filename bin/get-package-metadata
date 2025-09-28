@@ -1,0 +1,7 @@
+<?php
+#!/usr/bin/env php
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use CodekaizenGithub\WPPackageDeployORAS\Script\PackageMetaDataJSONFetcher;
+
+echo(PackageMetaDataJSONFetcher::main());

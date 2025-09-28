@@ -17,14 +17,14 @@ use UnexpectedValueException;
 /**
  * Undocumented class
  */
-class PackageMetaData {
+class PackageMetaDataJSONFetcher {
 	/**
 	 * Undocumented function
 	 *
-	 * @return void
+	 * @return string
 	 * @throws UnexpectedValueException On unexpected values.
 	 */
-	public static function main(): void {
+	public static function main(): string {
 
 		$logger = new Logger( 'cli' );
 		$logger->pushHandler( new StreamHandler( 'php://stdout', Level::Info ) );
@@ -32,10 +32,10 @@ class PackageMetaData {
 		$factory  = new PackageMetaJSONSerializableFactory( $logger );
 		$provider = $factory->create();
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
-		echo json_encode( $provider );
+		$json = json_encode( $provider );
+		if ( ! is_string( $json ) ) {
+			throw new UnexpectedValueException( 'Unable to serialize provider data to JSON' );
+		}
+		return $json;
 	}
-}
-
-if ( php_sapi_name() === 'cli' && realpath( $argv[0] ) === __FILE__ ) {
-	PackageMetaData::main();
 }

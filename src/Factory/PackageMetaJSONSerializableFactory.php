@@ -15,6 +15,7 @@ use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaP
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\ThemePackageMetaProvider;
 use JsonSerializable;
 use Psr\Log\LoggerInterface;
+use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 use Respect\Validation\Rules;
 use UnexpectedValueException;
@@ -46,23 +47,31 @@ class PackageMetaJSONSerializableFactory implements JSONSerializableFactoryContr
 	public function create(): JsonSerializable {
 		$packageType = getenv( 'WP_PACKAGE_TYPE' );
 		$filePath    = getenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH' );
-		Validator::create(
-			new Rules\AllOf(
-				new Rules\StringType(),
-				new Rules\ContainsAny( [ 'plugin', 'theme' ], true )
-			)
-		)->check( $packageType );
+		try {
+			Validator::create(
+				new Rules\AllOf(
+					new Rules\StringType(),
+					new Rules\ContainsAny( [ 'plugin', 'theme' ], true )
+				)
+			)->check( $packageType );
+		} catch ( ValidationException $e ) {
+			throw new UnexpectedValueException( 'WP_PACKAGE_TYPE must be either "plugin" or "theme"' );
+		}
 		/**
 		 * Value will have been validated.
 		 *
 		 * @var string $packageType Package Type.
 		 */
-		Validator::create(
-			new Rules\AllOf(
-				new Rules\StringType(),
-				new Rules\File(),
-			)
-		)->check( $filePath );
+		try {
+			Validator::create(
+				new Rules\AllOf(
+					new Rules\StringType(),
+					new Rules\File(),
+				)
+			)->check( $filePath );
+		} catch ( ValidationException $e ) {
+			throw new UnexpectedValueException( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH must be valid file path of type string' );
+		}
 		/**
 		 * Value will have been validated.
 		 *
