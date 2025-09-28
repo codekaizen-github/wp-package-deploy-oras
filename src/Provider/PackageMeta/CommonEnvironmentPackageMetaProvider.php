@@ -11,6 +11,8 @@ use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentP
 use Respect\Validation\Rules;
 use Respect\Validation\Validator;
 use CodekaizenGithub\WPPackageDeployORAS\Validator\Rule\Version\FlexibleSemanticVersionRule;
+use Respect\Validation\Exceptions\ValidationException;
+use UnexpectedValueException;
 
 /**
  * Undocumented class
@@ -20,15 +22,22 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 	 * Undocumented function
 	 *
 	 * @return string|null
+	 * @throws UnexpectedValueException On invalid value.
 	 */
 	public function getTested(): ?string {
-		$value = getenv( 'WP_PACKAGE_TESTED' );
-		Validator::create(
-			new Rules\AnyOf(
-				new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
-				new FlexibleSemanticVersionRule(),
-			)
-		)->check( $value );
+		$key   = 'WP_PACKAGE_TESTED';
+		$value = getenv( $key );
+		try {
+			Validator::create(
+				new Rules\AnyOf(
+					new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
+					new FlexibleSemanticVersionRule(),
+				)
+			)->check( $value );
+		} catch ( ValidationException $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be a valid semantic version" );
+		}
 		/**
 		 * Value will have been validated.
 		 *
@@ -40,15 +49,22 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 	 * Undocumented function
 	 *
 	 * @return string|null
+	 * @throws UnexpectedValueException On invalid value.
 	 */
 	public function getStable(): ?string {
-		$value = getenv( 'WP_PACKAGE_STABLE' );
-		Validator::create(
-			new Rules\AnyOf(
-				new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
-				new FlexibleSemanticVersionRule(),
-			)
-		)->check( $value );
+		$key   = 'WP_PACKAGE_STABLE';
+		$value = getenv( $key );
+		try {
+			Validator::create(
+				new Rules\AnyOf(
+					new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
+					new FlexibleSemanticVersionRule(),
+				)
+			)->check( $value );
+		} catch ( ValidationException $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be a valid semantic version" );
+		}
 		/**
 		 * Value will have been validated.
 		 *
@@ -60,15 +76,22 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 	 * Undocumented function
 	 *
 	 * @return string|null
+	 * @throws UnexpectedValueException On invalid value.
 	 */
 	public function getLicense(): ?string {
-		$value = getenv( 'WP_PACKAGE_LICENSE' );
-		Validator::create(
-			new Rules\AnyOf(
-				new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
-				new Rules\StringType(),
-			)
-		)->check( $value );
+		$key   = 'WP_PACKAGE_LICENSE';
+		$value = getenv( $key );
+		try {
+			Validator::create(
+				new Rules\AnyOf(
+					new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
+					new Rules\StringType(),
+				)
+			)->check( $value );
+		} catch ( ValidationException $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be a string" );
+		}
 		/**
 		 * Value will have been validated.
 		 *
@@ -80,15 +103,22 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 	 * Undocumented function
 	 *
 	 * @return string|null
+	 * @throws UnexpectedValueException On invalid value.
 	 */
 	public function getLicenseURL(): ?string {
-		$value = getenv( 'WP_PACKAGE_LICENSE_URL' );
-		Validator::create(
-			new Rules\AnyOf(
-				new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
-				new Rules\Url(),
-			)
-		)->check( $value );
+		$key   = 'WP_PACKAGE_LICENSE_URL';
+		$value = getenv( $key );
+		try {
+			Validator::create(
+				new Rules\AnyOf(
+					new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
+					new Rules\Url(),
+				)
+			)->check( $value );
+		} catch ( ValidationException $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be a string" );
+		}
 		/**
 		 * Value will have been validated.
 		 *
@@ -100,15 +130,22 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 	 * Undocumented function
 	 *
 	 * @return string|null
+	 * @throws UnexpectedValueException On invalid value.
 	 */
 	public function getDescription(): ?string {
-		$value = getenv( 'WP_PACKAGE_DESCRIPTION' );
-		Validator::create(
-			new Rules\AnyOf(
-				new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
-				new Rules\StringType(),
-			)
-		)->check( $value );
+		$key   = 'WP_PACKAGE_DESCRIPTION';
+		$value = getenv( $key );
+		try {
+			Validator::create(
+				new Rules\AnyOf(
+					new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
+					new Rules\StringType(),
+				)
+			)->check( $value );
+		} catch ( ValidationException $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be a string" );
+		}
 		/**
 		 * Value will have been validated.
 		 *
@@ -120,15 +157,22 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 	 * Undocumented function
 	 *
 	 * @return array<string,string>
+	 * @throws UnexpectedValueException On invalid value.
 	 */
 	public function getSections(): array {
-		$value = getenv( 'WP_PACKAGE_SECTIONS' );
-		Validator::create(
-			new Rules\AnyOf(
-				new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
-				new Rules\StringType(),
-			)
-		)->check( $value );
+		$key   = 'WP_PACKAGE_SECTIONS';
+		$value = getenv( $key );
+		try {
+			Validator::create(
+				new Rules\AnyOf(
+					new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
+					new Rules\StringType(),
+				)
+			)->check( $value );
+		} catch ( ValidationException $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be of type string" );
+		}
 		/**
 		 * Value will have been validated.
 		 *
@@ -138,13 +182,18 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 			return [];
 		}
 		$decoded = json_decode( $value, true );
-		Validator::create(
-			new Rules\AllOf(
-				new Rules\ArrayType(),
-				new Rules\Each( new Rules\StringType() ),
-				new Rules\Call( 'array_keys', new Rules\Each( new Rules\StringType() ) ),
-			)
-		)->check( $decoded );
+		try {
+			Validator::create(
+				new Rules\AllOf(
+					new Rules\ArrayType(),
+					new Rules\Each( new Rules\StringType() ),
+					new Rules\Call( 'array_keys', new Rules\Each( new Rules\StringType() ) ),
+				)
+			)->check( $decoded );
+		} catch ( ValidationException $e ) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be a valid JSON object with name/value pairs" );
+		}
 		/**
 		 * Value will have been validated
 		 *

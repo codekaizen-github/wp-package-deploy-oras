@@ -70,7 +70,10 @@ class PackageMetaJSONSerializableFactory implements JSONSerializableFactoryContr
 				)
 			)->check( $filePath );
 		} catch ( ValidationException $e ) {
-			throw new UnexpectedValueException( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH must be valid file path of type string' );
+			throw new UnexpectedValueException(
+				'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH
+			must be valid file path of type string'
+			);
 		}
 		/**
 		 * Value will have been validated.
