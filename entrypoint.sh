@@ -33,7 +33,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "WP_PACKAGE_METADATA_OVERRIDES: $WP_PACKAGE_METADATA_OVERRIDES";
 # Parse plugin metadata using wp-package-parser script
-PACKAGE_METADATA=$(php -d memory_limit="${PHP_MEMORY_LIMIT:-512M}" -d auto_prepend_file="$SCRIPT_DIR/vendor/autoload.php" "$SCRIPT_DIR/src/Script/PackageMetaData.php")
+PACKAGE_METADATA=$(php -d memory_limit="${PHP_MEMORY_LIMIT:-512M}" "$SCRIPT_DIR/bin/get-package-metadata")
 
 # Login to registry
 oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$(echo "$IMAGE_NAME" | cut -d'/' -f1)"
