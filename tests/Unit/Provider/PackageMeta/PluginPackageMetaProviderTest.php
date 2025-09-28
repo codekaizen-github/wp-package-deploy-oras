@@ -67,7 +67,10 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$localProvider->shouldReceive( 'getTextDomain' )->with()->andReturn( $textDomainExpected );
 		$localProvider->shouldReceive( 'getDomainPath' )->with()->andReturn( $domainPathExpected );
 		$localProvider->shouldReceive( 'getNetwork' )->with()->andReturn( $networkExpected );
-		$localProvider->shouldReceive( 'getRequiresWordPressVersion' )->with()->andReturn( $requiresWordPressVersionExpected );
+		$localProvider
+			->shouldReceive( 'getRequiresWordPressVersion' )
+			->with()
+			->andReturn( $requiresWordPressVersionExpected );
 		$localProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPHPVersionExpected );
 		$localProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$localProvider->shouldReceive( 'getRequiresPlugins' )->with()->andReturn( $requiresPluginsExpected );
@@ -159,7 +162,10 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$localProvider->shouldReceive( 'getTextDomain' )->with()->andReturn( $textDomainExpected );
 		$localProvider->shouldReceive( 'getDomainPath' )->with()->andReturn( $domainPathExpected );
 		$localProvider->shouldReceive( 'getNetwork' )->with()->andReturn( $networkExpected );
-		$localProvider->shouldReceive( 'getRequiresWordPressVersion' )->with()->andReturn( $requiresWordPressVersionExpected );
+		$localProvider
+			->shouldReceive( 'getRequiresWordPressVersion' )
+			->with()
+			->andReturn( $requiresWordPressVersionExpected );
 		$localProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPHPVersionExpected );
 		$localProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$localProvider->shouldReceive( 'getRequiresPlugins' )->with()->andReturn( $requiresPluginsExpected );

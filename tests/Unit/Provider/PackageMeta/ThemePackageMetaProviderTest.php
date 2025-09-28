@@ -65,7 +65,10 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$localProvider->shouldReceive( 'getAuthorURL' )->with()->andReturn( $authorURLExpected );
 		$localProvider->shouldReceive( 'getTextDomain' )->with()->andReturn( $textDomainExpected );
 		$localProvider->shouldReceive( 'getDomainPath' )->with()->andReturn( $domainPathExpected );
-		$localProvider->shouldReceive( 'getRequiresWordPressVersion' )->with()->andReturn( $requiresWordPressVersionExpected );
+		$localProvider
+			->shouldReceive( 'getRequiresWordPressVersion' )
+			->with()
+			->andReturn( $requiresWordPressVersionExpected );
 		$localProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPHPVersionExpected );
 		$localProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$localProvider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
@@ -150,10 +153,16 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$localProvider->shouldReceive( 'getVersion' )->with()->andReturn( $versionExpected );
 		$localProvider->shouldReceive( 'getShortDescription' )->with()->andReturn( $shortDescriptionExpected );
 		$localProvider->shouldReceive( 'getAuthor' )->with()->andReturn( $authorExpected );
-		$localProvider->shouldReceive( 'getAuthorURL' )->with()->andReturn( $authorURLExpected );
+		$localProvider
+			->shouldReceive( 'getAuthorURL' )
+			->with()
+			->andReturn( $authorURLExpected );
 		$localProvider->shouldReceive( 'getTextDomain' )->with()->andReturn( $textDomainExpected );
 		$localProvider->shouldReceive( 'getDomainPath' )->with()->andReturn( $domainPathExpected );
-		$localProvider->shouldReceive( 'getRequiresWordPressVersion' )->with()->andReturn( $requiresWordPressVersionExpected );
+		$localProvider
+			->shouldReceive( 'getRequiresWordPressVersion' )
+			->with()
+			->andReturn( $requiresWordPressVersionExpected );
 		$localProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPHPVersionExpected );
 		$localProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$localProvider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
