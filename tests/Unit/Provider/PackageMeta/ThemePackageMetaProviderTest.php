@@ -7,39 +7,42 @@
 
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;
 
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentPackageMetaContract;
-use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider;
+use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\ThemePackageMetaProvider;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Undocumented class
  */
-class PluginPackageMetaProviderTest extends TestCase {
+class ThemePackageMetaProviderTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *
 	 * @return void
 	 */
-	public function testAllPropertiesFromPluginMyBasicsPlugin(): void {
-		$nameExpected                     = 'Test Plugin';
-		$fullSlugExpected                 = 'test-plugin/test-plugin.php';
-		$shortSlugExpected                = 'test-plugin';
-		$viewURLExpected                  = 'https://codekaizen.net';
+	public function testAllPropertiesFromThemeFabledSunset(): void {
+		$nameExpected                     = 'Test Theme';
+		$fullSlugExpected                 = 'test-theme/style.css';
+		$shortSlugExpected                = 'test-theme';
 		$versionExpected                  = '3.0.1';
-		$shortDescriptionExpected         = 'This is a test plugin';
+		$viewURLExpected                  = 'https://codekaizen.net';
+		$downloadURLExpected              = 'https://github.com/codekaizen-github/wp-package-meta-provider-local';
+		$tagsExpected                     = [
+			'awesome',
+			'cool',
+			'test',
+		];
 		$authorExpected                   = 'Andrew Dawes';
 		$authorURLExpected                = 'https://codekaizen.net/team/andrew-dawes';
-		$textDomainExpected               = 'test-plugin';
-		$domainPathExpected               = '/languages';
-		$networkActualRaw                 = 'true';
-		$networkExpected                  = true;
+		$shortDescriptionExpected         = 'This is a test theme';
 		$requiresWordPressVersionExpected = '6.8.2';
 		$requiresPHPVersionExpected       = '8.2.1';
-		$downloadURLExpected              = 'https://github.com/codekaizen-github/wp-package-meta-provider-local';
-		$requiresPluginsActualRaw         = 'akismet,hello-dolly';
-		$requiresPluginsExpected          = [ 'akismet', 'hello-dolly' ];
+		$templateExpected                 = 'parent-theme';
+		$statusExpected                   = 'publish';
+		$textDomainExpected               = 'test-theme';
+		$domainPathExpected               = '/languages';
 		$testedExpected                   = '6.8.1';
 		$testedUnexpected                 = null;
 		$stableExpected                   = '6.8.0';
@@ -50,13 +53,7 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$licenseURLUnexpected             = null;
 		$descriptionExpected              = 'This is a test description';
 		$descriptionUnexpected            = null;
-		$tagsExpected                     = [];
-		$sectionsExpected                 = [
-			'changelog' => 'changed',
-			'about'     => 'this is a plugin about section',
-		];
-		$sectionsUnexpected               = [];
-		$localProvider                    = Mockery::mock( PluginPackageMetaContract::class );
+		$localProvider                    = Mockery::mock( ThemePackageMetaContract::class );
 		$environmentProvider              = Mockery::mock( CommonEnvironmentPackageMetaContract::class );
 		$localProvider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$localProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $fullSlugExpected );
@@ -68,26 +65,24 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$localProvider->shouldReceive( 'getAuthorURL' )->with()->andReturn( $authorURLExpected );
 		$localProvider->shouldReceive( 'getTextDomain' )->with()->andReturn( $textDomainExpected );
 		$localProvider->shouldReceive( 'getDomainPath' )->with()->andReturn( $domainPathExpected );
-		$localProvider->shouldReceive( 'getNetwork' )->with()->andReturn( $networkExpected );
 		$localProvider->shouldReceive( 'getRequiresWordPressVersion' )->with()->andReturn( $requiresWordPressVersionExpected );
 		$localProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPHPVersionExpected );
 		$localProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
-		$localProvider->shouldReceive( 'getRequiresPlugins' )->with()->andReturn( $requiresPluginsExpected );
 		$localProvider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
 		$localProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedUnexpected );
 		$localProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableUnexpected );
 		$localProvider->shouldReceive( 'getLicense' )->with()->andReturn( $licenseUnexpected );
 		$localProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLUnexpected );
 		$localProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionUnexpected );
-		$localProvider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsUnexpected );
+		$localProvider->shouldReceive( 'getTemplate' )->with()->andReturn( $templateExpected );
+		$localProvider->shouldReceive( 'getStatus' )->with()->andReturn( $statusExpected );
 
 		$environmentProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$environmentProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableExpected );
 		$environmentProvider->shouldReceive( 'getLicense' )->with()->andReturn( $licenseExpected );
 		$environmentProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLExpected );
 		$environmentProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionExpected );
-		$environmentProvider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsExpected );
-		$provider = new PluginPackageMetaProvider( $localProvider, $environmentProvider );
+		$provider = new ThemePackageMetaProvider( $localProvider, $environmentProvider );
 		$this->assertEquals( $nameExpected, $provider->getName() );
 		$this->assertEquals( $fullSlugExpected, $provider->getFullSlug() );
 		$this->assertEquals( $shortSlugExpected, $provider->getShortSlug() );
@@ -98,17 +93,16 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$this->assertEquals( $authorURLExpected, $provider->getAuthorURL() );
 		$this->assertEquals( $textDomainExpected, $provider->getTextDomain() );
 		$this->assertEquals( $domainPathExpected, $provider->getDomainPath() );
-		$this->assertEquals( $networkExpected, $provider->getNetwork() );
 		$this->assertEquals( $requiresWordPressVersionExpected, $provider->getRequiresWordPressVersion() );
 		$this->assertEquals( $requiresPHPVersionExpected, $provider->getRequiresPHPVersion() );
 		$this->assertEquals( $downloadURLExpected, $provider->getDownloadURL() );
-		$this->assertEquals( $requiresPluginsExpected, $provider->getRequiresPlugins() );
 		$this->assertEquals( $testedExpected, $provider->getTested() );
 		$this->assertEquals( $stableExpected, $provider->getStable() );
 		$this->assertEquals( $licenseExpected, $provider->getLicense() );
 		$this->assertEquals( $licenseURLExpected, $provider->getLicenseURL() );
 		$this->assertEquals( $descriptionExpected, $provider->getDescription() );
 		$this->assertEquals( $tagsExpected, $provider->getTags() );
-		$this->assertEquals( $sectionsExpected, $provider->getSections() );
+		$this->assertEquals( $templateExpected, $provider->getTemplate() );
+		$this->assertEquals( $statusExpected, $provider->getStatus() );
 	}
 }
