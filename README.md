@@ -6,7 +6,8 @@ A tool to deploy WordPress plugins or themes to OCI-compatible registries using 
 
 ### Required Environment Variables
 
-- **PACKAGE_ZIP_PATH**: Path to the plugin or theme zip file
+- **WP_PACKAGE_TYPE**: Type of WordPress package - either 'plugin' or 'theme'
+- **WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH**: File path to the WordPress package file (zip or tar.gz)
 - **REGISTRY_USERNAME**: Username for authentication with the registry
 - **REGISTRY_PASSWORD**: Password for authentication with the registry
 - **IMAGE_NAME**: Image name with optional tag (e.g. `ghcr.io/username/my-plugin:v1.0.0`)
