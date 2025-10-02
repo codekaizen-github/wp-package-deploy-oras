@@ -37,7 +37,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 		$envVars = [
 			'WP_PACKAGE_SLUG',
 			'WP_PACKAGE_TYPE',
-			'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH',
+			'WP_PACKAGE_HEADERS_FILE',
 		];
 		foreach ( $envVars as $var ) {
 			$this->originalEnvVars[ $var ] = getenv( $var );
@@ -64,7 +64,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	public function testAllPluginValid(): void {
 		putenv('WP_PACKAGE_SLUG=my-plugin');
 		putenv( 'WP_PACKAGE_TYPE=plugin' );
-		putenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH=' . FixturePathHelper::getPathForFile() . '/real.txt' );
+		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/real.txt' );
 		$logger = Mockery::mock(LoggerInterface::class);
 		$factory = new PackageMetaJSONSerializableFactory($logger);
 		$provider = $factory->create();
@@ -76,7 +76,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	public function testAllThemeValid(): void {
 		putenv('WP_PACKAGE_SLUG=my-theme');
 		putenv( 'WP_PACKAGE_TYPE=theme' );
-		putenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH=' . FixturePathHelper::getPathForFile() . '/real.txt' );
+		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/real.txt' );
 		$logger = Mockery::mock(LoggerInterface::class);
 		$factory = new PackageMetaJSONSerializableFactory($logger);
 		$provider = $factory->create();
@@ -90,7 +90,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	public function testPackageTypeInvalid(): void {
 		putenv('WP_PACKAGE_SLUG=my-plugin');
 		putenv( 'WP_PACKAGE_TYPE=asdf' );
-		putenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH=' . FixturePathHelper::getPathForFile() . '/real.txt' );
+		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/real.txt' );
 		$logger = Mockery::mock(LoggerInterface::class);
 		$factory = new PackageMetaJSONSerializableFactory($logger);
 		$this->expectException(UnexpectedValueException::class);
@@ -104,7 +104,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	public function testFilePathInvalid(): void {
 		putenv('WP_PACKAGE_SLUG=my-plugin');
 		putenv( 'WP_PACKAGE_TYPE=plugin' );
-		putenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH=' . FixturePathHelper::getPathForFile() . '/fake.txt' );
+		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/fake.txt' );
 		$logger = Mockery::mock(LoggerInterface::class);
 		$factory = new PackageMetaJSONSerializableFactory($logger);
 		$this->expectException(UnexpectedValueException::class);
@@ -117,7 +117,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	 */
 	public function testPackageSlugInvalid(): void {
 		putenv( 'WP_PACKAGE_TYPE=plugin' );
-		putenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH=' . FixturePathHelper::getPathForFile() . '/fake.txt' );
+		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/fake.txt' );
 		$logger = Mockery::mock(LoggerInterface::class);
 		$factory = new PackageMetaJSONSerializableFactory($logger);
 		$this->expectException(UnexpectedValueException::class);

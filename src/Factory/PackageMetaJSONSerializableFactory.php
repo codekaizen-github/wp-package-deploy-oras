@@ -78,7 +78,7 @@ class PackageMetaJSONSerializableFactory implements JSONSerializableFactoryContr
 		 *
 		 * @var string $packageType Package Type.
 		 */
-		$filePath = getenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH' );
+		$filePath = getenv( 'WP_PACKAGE_HEADERS_FILE' );
 		try {
 			Validator::create(
 				new Rules\AllOf(
@@ -88,7 +88,7 @@ class PackageMetaJSONSerializableFactory implements JSONSerializableFactoryContr
 			)->check( $filePath );
 		} catch ( ValidationException $e ) {
 			throw new UnexpectedValueException(
-				'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH
+				'WP_PACKAGE_HEADERS_FILE
 			must be valid file path of type string'
 			);
 		}
