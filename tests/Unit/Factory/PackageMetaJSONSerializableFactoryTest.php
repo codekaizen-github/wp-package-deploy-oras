@@ -35,6 +35,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		$envVars = [
+			'WP_PACKAGE_SLUG',
 			'WP_PACKAGE_TYPE',
 			'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH',
 		];
@@ -61,6 +62,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	 * Test all methods with valid values
 	 */
 	public function testAllPluginValid(): void {
+		putenv('WP_PACKAGE_SLUG=my-plugin');
 		putenv( 'WP_PACKAGE_TYPE=plugin' );
 		putenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH=' . FixturePathHelper::getPathForFile() . '/real.txt' );
 		$logger = Mockery::mock(LoggerInterface::class);
@@ -72,6 +74,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	 * Test all methods with valid values
 	 */
 	public function testAllThemeValid(): void {
+		putenv('WP_PACKAGE_SLUG=my-theme');
 		putenv( 'WP_PACKAGE_TYPE=theme' );
 		putenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH=' . FixturePathHelper::getPathForFile() . '/real.txt' );
 		$logger = Mockery::mock(LoggerInterface::class);
@@ -85,6 +88,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	 * @return void
 	 */
 	public function testPackageTypeInvalid(): void {
+		putenv('WP_PACKAGE_SLUG=my-plugin');
 		putenv( 'WP_PACKAGE_TYPE=asdf' );
 		putenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH=' . FixturePathHelper::getPathForFile() . '/real.txt' );
 		$logger = Mockery::mock(LoggerInterface::class);
@@ -98,6 +102,20 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	 * @return void
 	 */
 	public function testFilePathInvalid(): void {
+		putenv('WP_PACKAGE_SLUG=my-plugin');
+		putenv( 'WP_PACKAGE_TYPE=plugin' );
+		putenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH=' . FixturePathHelper::getPathForFile() . '/fake.txt' );
+		$logger = Mockery::mock(LoggerInterface::class);
+		$factory = new PackageMetaJSONSerializableFactory($logger);
+		$this->expectException(UnexpectedValueException::class);
+		$factory->create();
+	}
+		/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function testPackageSlugInvalid(): void {
 		putenv( 'WP_PACKAGE_TYPE=plugin' );
 		putenv( 'WP_PACKAGE_FILE_WITH_PACKAGE_HEADERS_FILEPATH=' . FixturePathHelper::getPathForFile() . '/fake.txt' );
 		$logger = Mockery::mock(LoggerInterface::class);

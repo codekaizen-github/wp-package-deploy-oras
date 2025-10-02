@@ -52,12 +52,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codekaizen-github/wp-package-meta-provider-local.git",
-                "reference": "8ee08a40481204040cabfbf017418f96bdf0f189"
+                "reference": "c3b1266656ca0990fc94dae2989e0af5c56714c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-local/zipball/8ee08a40481204040cabfbf017418f96bdf0f189",
-                "reference": "8ee08a40481204040cabfbf017418f96bdf0f189",
+                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-local/zipball/c3b1266656ca0990fc94dae2989e0af5c56714c4",
+                "reference": "c3b1266656ca0990fc94dae2989e0af5c56714c4",
                 "shasum": ""
             },
             "require": {
@@ -95,7 +95,7 @@
                 "issues": "https://github.com/codekaizen-github/wp-package-meta-provider-local/issues",
                 "source": "https://github.com/codekaizen-github/wp-package-meta-provider-local/tree/main"
             },
-            "time": "2025-09-27T20:11:11+00:00"
+            "time": "2025-10-02T01:54:13+00:00"
         },
         {
             "name": "monolog/monolog",
