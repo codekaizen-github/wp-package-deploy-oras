@@ -10,7 +10,7 @@ WORKDIR /wp-package-deploy-oras
 
 # Install unzip, git, curl, composer, and oras
 RUN apt-get update \
-    && apt-get install -y unzip git curl libzip-dev jq \
+    && apt-get install -y zip unzip git curl libzip-dev jq \
     && docker-php-ext-install zip \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && curl -LO https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_${ARCH}.tar.gz \
