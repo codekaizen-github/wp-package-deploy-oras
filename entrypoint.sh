@@ -7,9 +7,12 @@ set -x
 #   REGISTRY_PASSWORD: Registry password
 #   IMAGE_NAME: Image name (e.g. ghcr.io/codekaizen-github/wp-github-gist-block:v1)
 
-
 if [ -z "$WP_PACKAGE_SLUG" ]; then
     echo "WP_PACKAGE_SLUG env variable is required!" >&2
+    exit 1
+fi
+if [ -z "${WP_PACKAGE_HEADERS_FILE:-}" ]; then
+    echo "WP_PACKAGE_HEADERS_FILE env variable is required!" >&2
     exit 1
 fi
 if [ -z "$REGISTRY_USERNAME" ]; then
@@ -24,8 +27,12 @@ if [ -z "$IMAGE_NAME" ]; then
     echo "IMAGE_NAME env variable is required!" >&2
     exit 1
 fi
+
 # Default path to the WordPress package files (mounted volume)
 WP_PACKAGE_PATH="${WP_PACKAGE_PATH:-/package}"
+
+# The headers file should be relative to the package path
+WP_PACKAGE_HEADERS_FILE="${WP_PACKAGE_PATH}/${WP_PACKAGE_HEADERS_FILE}"
 
 META_ANNOTATION_KEY="${META_ANNOTATION_KEY:-wp-package-metadata}"
 
