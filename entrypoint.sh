@@ -39,6 +39,9 @@ META_ANNOTATION_KEY="${META_ANNOTATION_KEY:-wp-package-metadata}"
 # Get the directory of this script for relative references
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Verify that the package path exists
+ls -la "$WP_PACKAGE_PATH"
+
 # Parse plugin metadata using wp-package-parser script
 PACKAGE_METADATA=$(php -d memory_limit="${PHP_MEMORY_LIMIT:-512M}" "$SCRIPT_DIR/bin/get-package-metadata")
 

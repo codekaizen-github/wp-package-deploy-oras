@@ -87,10 +87,12 @@ class PackageMetaJSONSerializableFactory implements JSONSerializableFactoryContr
 				)
 			)->check( $filePath );
 		} catch ( ValidationException $e ) {
+			// phpcs:disable Squiz.Commenting.InlineComment.InvalidEndChar, WordPress.PHP.DevelopmentFunctions.error_log_print_r, WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new UnexpectedValueException(
-				'WP_PACKAGE_HEADERS_FILE
-			must be valid file path of type string'
+				'WP_PACKAGE_HEADERS_FILE must be valid file path of type string.
+				Received: ' . print_r( $filePath, true )
 			);
+			// phpcs:enable Squiz.Commenting.InlineComment.InvalidEndChar, WordPress.PHP.DevelopmentFunctions.error_log_print_r, WordPress.Security.EscapeOutput.ExceptionNotEscaped
 		}
 		/**
 		* Value will have been validated.
