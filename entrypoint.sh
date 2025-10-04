@@ -12,10 +12,6 @@ if [ -z "$WP_PACKAGE_SLUG" ]; then
     echo "WP_PACKAGE_SLUG env variable is required!" >&2
     exit 1
 fi
-if [ -z "$WP_PACKAGE_PATH" ]; then
-    echo "WP_PACKAGE_PATH env variable is required!" >&2
-    exit 1
-fi
 if [ -z "$REGISTRY_USERNAME" ]; then
     echo "REGISTRY_USERNAME env variable is required!" >&2
     exit 1
@@ -28,6 +24,8 @@ if [ -z "$IMAGE_NAME" ]; then
     echo "IMAGE_NAME env variable is required!" >&2
     exit 1
 fi
+# Default path to the WordPress package files (mounted volume)
+WP_PACKAGE_PATH="${WP_PACKAGE_PATH:-/package}"
 
 META_ANNOTATION_KEY="${META_ANNOTATION_KEY:-wp-package-metadata}"
 

@@ -5,6 +5,9 @@ ARG ORAS_VERSION=1.2.2
 ARG ARCH=amd64
 ENV PHP_MEMORY_LIMIT=512M
 
+# Create app directory
+WORKDIR /wp-package-deploy-oras
+
 # Install unzip, git, curl, composer, and oras
 RUN apt-get update \
     && apt-get install -y unzip git curl libzip-dev jq \
@@ -15,12 +18,11 @@ RUN apt-get update \
     && mv oras /usr/local/bin/oras \
     && rm oras_${ORAS_VERSION}_linux_${ARCH}.tar.gz
 
+FROM dependencies AS dev
+
 FROM dependencies AS test
 
 FROM dependencies AS final
-
-# Create app directory
-WORKDIR /wp-package-deploy-oras
 
 COPY composer.json composer.lock ./
 # Install PHP dependencies
@@ -30,5 +32,8 @@ RUN composer install --no-dev --optimize-autoloader
 COPY src ./src
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
+
+# Set working directory to /package - this is where the package files will be mounted
+WORKDIR /package
 
 ENTRYPOINT ["/wp-package-deploy-oras/entrypoint.sh"]
