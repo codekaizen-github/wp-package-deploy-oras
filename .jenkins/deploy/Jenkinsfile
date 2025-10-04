@@ -99,6 +99,12 @@ pipeline {
             }
         }
         stage('Create and Push Stage Specific Manifests') {
+            when {
+                anyOf {
+                    buildingTag();
+                    branch 'main';
+                }
+            }
             matrix {
                 axes {
                     axis {
@@ -142,6 +148,12 @@ pipeline {
             }
         }
         stage('Create and Push Final Manifest') {
+            when {
+                anyOf {
+                    buildingTag();
+                    branch 'main';
+                }
+            }
             agent { label 'docker' }
             environment {
                 ARCHS = 'amd64 arm64'
