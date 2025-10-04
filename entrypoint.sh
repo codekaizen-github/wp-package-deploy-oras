@@ -34,7 +34,7 @@ WP_PACKAGE_PATH="${WP_PACKAGE_PATH:-/package}"
 # The headers file should be relative to the package path
 WP_PACKAGE_HEADERS_FILE="${WP_PACKAGE_PATH}/${WP_PACKAGE_HEADERS_FILE}"
 
-META_ANNOTATION_KEY="${META_ANNOTATION_KEY:-wp-package-metadata}"
+META_ANNOTATION_KEY="${META_ANNOTATION_KEY:-org.codekaizen-github.wp-package-deploy.wp-package-metadata}"
 
 # Get the directory of this script for relative references
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
