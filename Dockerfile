@@ -28,12 +28,10 @@ COPY composer.json composer.lock ./
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Copy entrypoint script and src directory
-COPY src ./src
-COPY entrypoint.sh ./entrypoint.sh
-RUN chmod +x ./entrypoint.sh
+# Copy files
+COPY . ./
 
 # Set working directory to /package - this is where the package files will be mounted
 WORKDIR /package
 
-ENTRYPOINT ["/wp-package-deploy-oras/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/env", "bash", "/wp-package-deploy-oras/entrypoint.sh"]
