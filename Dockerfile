@@ -1,5 +1,6 @@
 # Dockerfile for WordPress Package Registry ORAS Package Deploy
-FROM php:8.2-cli AS final
+ARG PHP_VERSION=8.1
+FROM php:${PHP_VERSION}-cli AS dependencies
 ARG ORAS_VERSION=1.2.2
 ARG ARCH=amd64
 ENV PHP_MEMORY_LIMIT=512M
@@ -14,6 +15,9 @@ RUN apt-get update \
     && mv oras /usr/local/bin/oras \
     && rm oras_${ORAS_VERSION}_linux_${ARCH}.tar.gz
 
+FROM dependencies AS test
+
+FROM dependencies AS final
 
 # Create app directory
 WORKDIR /wp-package-deploy-oras
