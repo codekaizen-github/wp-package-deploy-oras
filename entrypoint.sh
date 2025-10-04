@@ -29,6 +29,8 @@ if [ -z "$IMAGE_NAME" ]; then
     exit 1
 fi
 
+META_ANNOTATION_KEY="${META_ANNOTATION_KEY:-wp-package-metadata}"
+
 # Get the directory of this script for relative references
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -37,7 +39,6 @@ PACKAGE_METADATA=$(php -d memory_limit="${PHP_MEMORY_LIMIT:-512M}" "$SCRIPT_DIR/
 
 # Login to registry
 oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$(echo "$IMAGE_NAME" | cut -d'/' -f1)"
-
 
 # Create a zip file of the package
 PACKAGE_ZIP_DIR=$(mktemp -d)
@@ -51,6 +52,6 @@ pushd "$PACKAGE_ZIP_DIR" >/dev/null
 # Push the zip file with annotations using only the filename (relative path)
 oras push "$IMAGE_NAME" \
     "${PACKAGE_ZIP_NAME}:application/zip" \
-    --annotation "$ANNOTATION_PREFIX.wp-package-metadata=$PACKAGE_METADATA"
+    --annotation "$META_ANNOTATION_KEY=$PACKAGE_METADATA"
 
 popd >/dev/null
