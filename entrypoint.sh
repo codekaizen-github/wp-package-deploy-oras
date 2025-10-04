@@ -55,17 +55,22 @@ if [ -z "$PACKAGE_METADATA" ] || [ "$PACKAGE_METADATA" = "{}" ]; then
     PACKAGE_METADATA="{}"
 fi
 
-# Login to registry
-oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$(echo "$IMAGE_NAME" | cut -d'/' -f1)"
-
+# Create a temporary directory to hold the symlink to the package
+PACKAGE_LINK_DIR=$(mktemp -d)
+PACKAGE_LINK_PATH="${PACKAGE_LINK_DIR}/${WP_PACKAGE_SLUG}"
+ln -s "$WP_PACKAGE_PATH" "$PACKAGE_LINK_PATH"
 # Create a zip file of the package
 PACKAGE_ZIP_DIR=$(mktemp -d)
 PACKAGE_ZIP_NAME="${WP_PACKAGE_SLUG}.zip"
 PACKAGE_ZIP_FILE="${PACKAGE_ZIP_DIR}/${PACKAGE_ZIP_NAME}"
-zip -r "$PACKAGE_ZIP_FILE" "$WP_PACKAGE_PATH"
+zip -r "$PACKAGE_ZIP_FILE" "$PACKAGE_LINK_PATH"
+
+# Login to registry
+oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$(echo "$IMAGE_NAME" | cut -d'/' -f1)"
 
 # Change to the directory containing the zip file
 pushd "$PACKAGE_ZIP_DIR" >/dev/null
+
 
 # Push the zip file with annotations using only the filename (relative path)
 oras push "$IMAGE_NAME" \
