@@ -19,3 +19,9 @@ A tool to deploy WordPress plugins or themes to OCI-compatible registries using 
 
 - **META_ANNOTATION_KEY**: Prefix for annotation keys (default: `org.codekaizen-github.wp-package-deploy-oras`)
 - **PHP_MEMORY_LIMIT**: Memory limit for PHP when parsing package metadata (default: `512M`)
+- **WP_PACKAGE_TESTED**: Tested up to WordPress version (e.g. `6.2`)
+- **WP_PACKAGE_STABLE**: Stable tag/version of the package (e.g. `1.0.0`)
+- **WP_PACKAGE_LICENSE**: License of the package (e.g. `GPLv2 or later`)
+- **WP_PACKAGE_LICENSE_URL**: URL to the license (e.g. `https://www.gnu.org/licenses/gpl-2.0.html`)
+- **WP_PACKAGE_DESCRIPTION**: Description of the package
+- **WP_PACKAGE_SECTIONS**: Sections of the package in JSON format (e.g. `{"section1":"Section 1","section2":"Section 2"}`)
