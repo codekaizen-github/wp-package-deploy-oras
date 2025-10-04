@@ -63,18 +63,19 @@ ln -s "$WP_PACKAGE_PATH" "$PACKAGE_LINK_PATH"
 PACKAGE_ZIP_DIR=$(mktemp -d)
 PACKAGE_ZIP_NAME="${WP_PACKAGE_SLUG}.zip"
 PACKAGE_ZIP_FILE="${PACKAGE_ZIP_DIR}/${PACKAGE_ZIP_NAME}"
-zip -r "$PACKAGE_ZIP_FILE" "$PACKAGE_LINK_PATH"
+
+# Change to the directory containing the zip file
+pushd "$PACKAGE_LINK_DIR" >/dev/null
+zip -r "$PACKAGE_ZIP_FILE" "$WP_PACKAGE_SLUG"
+popd >/dev/null
 
 # Login to registry
 oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$(echo "$IMAGE_NAME" | cut -d'/' -f1)"
 
 # Change to the directory containing the zip file
 pushd "$PACKAGE_ZIP_DIR" >/dev/null
-
-
 # Push the zip file with annotations using only the filename (relative path)
 oras push "$IMAGE_NAME" \
     "${PACKAGE_ZIP_NAME}:application/zip" \
     --annotation "$META_ANNOTATION_KEY=$PACKAGE_METADATA"
-
 popd >/dev/null
