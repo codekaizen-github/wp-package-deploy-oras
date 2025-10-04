@@ -43,7 +43,17 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ls -la "$WP_PACKAGE_PATH"
 
 # Parse plugin metadata using wp-package-parser script
-PACKAGE_METADATA=$(php -d memory_limit="${PHP_MEMORY_LIMIT:-512M}" "$SCRIPT_DIR/bin/get-package-metadata")
+PACKAGE_METADATA=$(php -d memory_limit="${PHP_MEMORY_LIMIT:-512M}" \
+    -d display_errors=0 \
+    -d display_startup_errors=0 \
+    -d error_reporting=0 \
+    -d log_errors=0 \
+    "$SCRIPT_DIR/bin/get-package-metadata" 2>/dev/null || echo '{}')
+
+if [ -z "$PACKAGE_METADATA" ] || [ "$PACKAGE_METADATA" = "{}" ]; then
+    echo "Failed to parse package metadata or no metadata found. Using empty JSON object." >&2
+    PACKAGE_METADATA="{}"
+fi
 
 # Login to registry
 oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$(echo "$IMAGE_NAME" | cut -d'/' -f1)"
