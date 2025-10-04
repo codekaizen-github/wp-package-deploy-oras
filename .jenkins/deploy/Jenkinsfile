@@ -7,7 +7,7 @@ pipeline {
         GHCR_CREDENTIALS_ID = 'jenkins-github-ghcr-pat-token-andrewjdawes' // Jenkins Credentials ID for a GitHub PAT Token with read/write access to GHCR packages
     }
     stages {
-        stage('Build and Test') {
+        stage('Test') {
             matrix {
                 axes {
                     axis {
@@ -35,7 +35,13 @@ pipeline {
                 }
             }
         }
-        stage('Define vars') {
+        stage('Define build vars') {
+            when {
+                anyOf {
+                    buildingTag();
+                    branch 'main';
+                }
+            }
             agent any
             steps {
                 script {
@@ -56,6 +62,12 @@ pipeline {
             }
         }
         stage('Build and Push Images') {
+            when {
+                anyOf {
+                    buildingTag();
+                    branch 'main';
+                }
+            }
             matrix {
                 axes {
                     axis {
