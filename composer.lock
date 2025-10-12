@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c27fbb39ca50a6f883900b9668275771",
+    "content-hash": "1b6a3d1c0d22916dab2dae9e5447a6fa",
     "packages": [
         {
             "name": "codekaizen/wp-package-meta-provider-contract",
@@ -52,12 +52,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codekaizen-github/wp-package-meta-provider-local.git",
-                "reference": "c3b1266656ca0990fc94dae2989e0af5c56714c4"
+                "reference": "d139056231832c78ed0afbab326a66563700a14c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-local/zipball/c3b1266656ca0990fc94dae2989e0af5c56714c4",
-                "reference": "c3b1266656ca0990fc94dae2989e0af5c56714c4",
+                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-local/zipball/d139056231832c78ed0afbab326a66563700a14c",
+                "reference": "d139056231832c78ed0afbab326a66563700a14c",
                 "shasum": ""
             },
             "require": {
@@ -95,7 +95,7 @@
                 "issues": "https://github.com/codekaizen-github/wp-package-meta-provider-local/issues",
                 "source": "https://github.com/codekaizen-github/wp-package-meta-provider-local/tree/main"
             },
-            "time": "2025-10-02T01:54:13+00:00"
+            "time": "2025-10-12T17:36:07+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1172,16 +1172,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.28",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "578fa296a166605d97b94091f724f1257185d278"
-            },
+            "version": "2.1.31",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/578fa296a166605d97b94091f724f1257185d278",
-                "reference": "578fa296a166605d97b94091f724f1257185d278",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ead89849d879fe203ce9292c6ef5e7e76f867b96",
+                "reference": "ead89849d879fe203ce9292c6ef5e7e76f867b96",
                 "shasum": ""
             },
             "require": {
@@ -1226,7 +1221,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-19T08:58:49+00:00"
+            "time": "2025-10-10T14:14:11+00:00"
         },
         {
             "name": "phpstan/phpstan-mockery",
@@ -2920,12 +2915,12 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "codekaizen/wp-package-meta-provider-contract": 20,
         "codekaizen/wp-package-meta-provider-local": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
