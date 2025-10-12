@@ -2,7 +2,7 @@
 /**
  * Unknown.
  *
- * @package CodekaizenGithub\WPPackageDeployORAS
+ * @package CodekaizenGithub\WPPackageDeployORAS\Contract\Factory
  */
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Contract\Factory;

@@ -4,7 +4,7 @@
  *
  * Tests for validating flexible semantic version strings according to WordPress standards.
  *
- * @package CodeKaizen\WPPackageMetaProviderLocalTests\Unit\Validator\Rule\Version
+ * @package CodeKaizen\WPPackageDeployORASTests\Unit\Validator\Rule\Version
  * @since 1.0.0
  */
 

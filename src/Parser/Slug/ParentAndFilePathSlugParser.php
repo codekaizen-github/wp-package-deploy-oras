@@ -2,7 +2,7 @@
 /**
  * Environment SlugParser
  *
- * @package CodekaizenGithub\WPPackageDeployORAS
+ * @package CodekaizenGithub\WPPackageDeployORAS\Parser\Slug
  */
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Parser\Slug;

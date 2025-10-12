@@ -2,7 +2,7 @@
 /**
  * Tests.
  *
- * @package CodeKaizen\WPPackageDeployORASTests
+ * @package CodeKaizen\WPPackageDeployORASTests\Unit\Parser\Slug
  */
 
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Parser\Slug;

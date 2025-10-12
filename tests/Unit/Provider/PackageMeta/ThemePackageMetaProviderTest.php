@@ -2,7 +2,7 @@
 /**
  * Tests.
  *
- * @package CodeKaizen\WPPackageDeployORASTests
+ * @package CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta
  */
 
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;

@@ -2,7 +2,7 @@
 /**
  * Factory.
  *
- * @package CodekaizenGithub\WPPackageDeployORAS
+ * @package CodekaizenGithub\WPPackageDeployORAS\Factory
  */
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Factory;

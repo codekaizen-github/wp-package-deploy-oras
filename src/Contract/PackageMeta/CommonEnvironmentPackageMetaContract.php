@@ -2,7 +2,7 @@
 /**
  * Interface.
  *
- * @package  CodekaizenGithub\WPPackageDeployORAS
+ * @package  CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta
  */
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta;

@@ -2,7 +2,7 @@
 /**
  * Tests.
  * phpcs:ignoreFile WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv Ignoring.
- * @package CodeKaizen\WPPackageDeployORASTests
+ * @package CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta
  */
 
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;

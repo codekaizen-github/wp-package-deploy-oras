@@ -2,7 +2,7 @@
 /**
  * Script to get the package meta as JSON.
  *
- * @package CodekaizenGithub\WPPackageDeployORAS
+ * @package CodekaizenGithub\WPPackageDeployORAS\Script
  */
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Script;

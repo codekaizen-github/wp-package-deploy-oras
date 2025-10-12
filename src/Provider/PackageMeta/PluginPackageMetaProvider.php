@@ -2,7 +2,7 @@
 /**
  * Unknown.
  *
- * @package  CodekaizenGithub\WPPackageDeployORAS
+ * @package  CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta
  */
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta;
