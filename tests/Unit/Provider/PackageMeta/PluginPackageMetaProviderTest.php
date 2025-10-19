@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;
 
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentPackageMetaContract;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider;
 use Mockery;
@@ -54,7 +54,23 @@ class PluginPackageMetaProviderTest extends TestCase {
 			'about'     => 'this is a plugin about section',
 		];
 		$sectionsUnexpected               = [];
-		$localProvider                    = Mockery::mock( PluginPackageMetaContract::class );
+		$iconsExpected                    = [
+			'1x'  => 'https://example.com/icon-128x128.png',
+			'2x'  => 'https://example.com/icon-256x256.png',
+			'svg' => 'https://example.com/icon.svg',
+		];
+		$iconsUnexpected                  = [];
+		$bannersExpected                  = [
+			'1x' => 'https://example.com/banner-772x250.png',
+			'2x' => 'https://example.com/banner-1544x500.png',
+		];
+		$bannersUnexpected                = [];
+		$bannersRtlExpected               = [
+			'1x' => 'https://example.com/banner-rtl-772x250.png',
+			'2x' => 'https://example.com/banner-rtl-1544x500.png',
+		];
+		$bannersRtlUnexpected             = [];
+		$localProvider                    = Mockery::mock( PluginPackageMetaProviderContract::class );
 		$environmentProvider              = Mockery::mock( CommonEnvironmentPackageMetaContract::class );
 		$localProvider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$localProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $fullSlugExpected );
@@ -81,6 +97,9 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$localProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLUnexpected );
 		$localProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionUnexpected );
 		$localProvider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsUnexpected );
+		$localProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsUnexpected );
+		$localProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersUnexpected );
+		$localProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlUnexpected );
 
 		$environmentProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$environmentProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableExpected );
@@ -88,6 +107,9 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$environmentProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLExpected );
 		$environmentProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionExpected );
 		$environmentProvider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsExpected );
+		$environmentProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
+		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
+		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
 		$provider = new PluginPackageMetaProvider( $localProvider, $environmentProvider );
 		$this->assertEquals( $nameExpected, $provider->getName() );
 		$this->assertEquals( $fullSlugExpected, $provider->getFullSlug() );
@@ -111,6 +133,9 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$this->assertEquals( $descriptionExpected, $provider->getDescription() );
 		$this->assertEquals( $tagsExpected, $provider->getTags() );
 		$this->assertEquals( $sectionsExpected, $provider->getSections() );
+		$this->assertEquals( $iconsExpected, $provider->getIcons() );
+		$this->assertEquals( $bannersExpected, $provider->getBanners() );
+		$this->assertEquals( $bannersRtlExpected, $provider->getBannersRTL() );
 	}
 	/**
 	 * Test
@@ -149,7 +174,23 @@ class PluginPackageMetaProviderTest extends TestCase {
 			'about'     => 'this is a plugin about section',
 		];
 		$sectionsUnexpected               = [];
-		$localProvider                    = Mockery::mock( PluginPackageMetaContract::class );
+		$iconsExpected                    = [
+			'1x'  => 'https://example.com/icon-128x128.png',
+			'2x'  => 'https://example.com/icon-256x256.png',
+			'svg' => 'https://example.com/icon.svg',
+		];
+		$iconsUnexpected                  = [];
+		$bannersExpected                  = [
+			'1x' => 'https://example.com/banner-772x250.png',
+			'2x' => 'https://example.com/banner-1544x500.png',
+		];
+		$bannersUnexpected                = [];
+		$bannersRtlExpected               = [
+			'1x' => 'https://example.com/banner-rtl-772x250.png',
+			'2x' => 'https://example.com/banner-rtl-1544x500.png',
+		];
+		$bannersRtlUnexpected             = [];
+		$localProvider                    = Mockery::mock( PluginPackageMetaProviderContract::class );
 		$environmentProvider              = Mockery::mock( CommonEnvironmentPackageMetaContract::class );
 		$localProvider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$localProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $fullSlugExpected );
@@ -176,6 +217,9 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$localProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLUnexpected );
 		$localProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionUnexpected );
 		$localProvider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsUnexpected );
+		$localProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsUnexpected );
+		$localProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersUnexpected );
+		$localProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlUnexpected );
 
 		$environmentProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$environmentProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableExpected );
@@ -183,6 +227,9 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$environmentProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLExpected );
 		$environmentProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionExpected );
 		$environmentProvider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsExpected );
+		$environmentProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
+		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
+		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
 		$provider = new PluginPackageMetaProvider( $localProvider, $environmentProvider );
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 		$encoded = json_encode( $provider );
@@ -233,5 +280,11 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$this->assertEquals( $tagsExpected, $decoded['tags'] );
 		$this->assertArrayHasKey( 'sections', $decoded );
 		$this->assertEquals( $sectionsExpected, $decoded['sections'] );
+		$this->assertArrayHasKey( 'icons', $decoded );
+		$this->assertEquals( $iconsExpected, $decoded['icons'] );
+		$this->assertArrayHasKey( 'banners', $decoded );
+		$this->assertEquals( $bannersExpected, $decoded['banners'] );
+		$this->assertArrayHasKey( 'bannersRtl', $decoded );
+		$this->assertEquals( $bannersRtlExpected, $decoded['bannersRtl'] );
 	}
 }

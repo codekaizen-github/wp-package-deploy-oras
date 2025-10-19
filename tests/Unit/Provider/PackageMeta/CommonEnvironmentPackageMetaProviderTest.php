@@ -41,6 +41,9 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 			'WP_PACKAGE_LICENSE_URL',
 			'WP_PACKAGE_DESCRIPTION',
 			'WP_PACKAGE_SECTIONS',
+			'WP_PACKAGE_ICONS',
+			'WP_PACKAGE_BANNERS',
+			'WP_PACKAGE_BANNERS_RTL',
 		];
 		foreach ( $envVars as $var ) {
 			$this->originalEnvVars[ $var ] = getenv( $var );
@@ -73,6 +76,9 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 		putenv( 'WP_PACKAGE_LICENSE_URL=https://www.gnu.org/licenses/gpl-2.0.html' );
 		putenv( 'WP_PACKAGE_DESCRIPTION=A test package' );
 		putenv( 'WP_PACKAGE_SECTIONS={"changelog":"Latest changes","faq":"Frequently asked questions"}' );
+		putenv( 'WP_PACKAGE_ICONS={"1x":"https://example.com/icon-128x128.png","2x":"https://example.com/icon-256x256.png","svg":"https://example.com/icon.svg"}' );
+		putenv( 'WP_PACKAGE_BANNERS={"1x":"https://example.com/banner-772x250.png","2x":"https://example.com/banner-1544x500.png"}' );
+		putenv( 'WP_PACKAGE_BANNERS_RTL={"1x":"https://example.com/banner-rtl-772x250.png","2x":"https://example.com/banner-rtl-1544x500.png"}' );
 
 		$this->assertEquals( '6.8.2', $this->provider->getTested() );
 		$this->assertEquals( '1.5.0', $this->provider->getStable() );
@@ -86,6 +92,28 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 			],
 			$this->provider->getSections()
 		);
+		$this->assertEquals(
+			[
+				'1x'  => 'https://example.com/icon-128x128.png',
+				'2x'  => 'https://example.com/icon-256x256.png',
+				'svg' => 'https://example.com/icon.svg',
+			],
+			$this->provider->getIcons()
+		);
+		$this->assertEquals(
+			[
+				'1x' => 'https://example.com/banner-772x250.png',
+				'2x' => 'https://example.com/banner-1544x500.png',
+			],
+			$this->provider->getBanners()
+		);
+		$this->assertEquals(
+			[
+				'1x' => 'https://example.com/banner-rtl-772x250.png',
+				'2x' => 'https://example.com/banner-rtl-1544x500.png',
+			],
+			$this->provider->getBannersRTL()
+		);
 	}
 
 	/**
@@ -98,6 +126,9 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 		$this->assertNull( $this->provider->getLicenseURL() );
 		$this->assertNull( $this->provider->getDescription() );
 		$this->assertEquals( [], $this->provider->getSections() );
+		$this->assertEquals( [], $this->provider->getIcons() );
+		$this->assertEquals( [], $this->provider->getBanners() );
+		$this->assertEquals( [], $this->provider->getBannersRTL() );
 	}
 
 	/**
@@ -125,5 +156,30 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 		putenv( 'WP_PACKAGE_SECTIONS=not-json-data' );
 		$this->expectException( UnexpectedValueException::class );
 		$this->provider->getSections();
+	}
+
+	/**
+	 * Test invalid JSON for icons
+	 */
+	public function testInvalidIcons(): void {
+		putenv( 'WP_PACKAGE_ICONS=not-json-data' );
+		$this->expectException( UnexpectedValueException::class );
+		$this->provider->getIcons();
+	}
+	/**
+	 * Test invalid JSON for banners
+	 */
+	public function testInvalidBanners(): void {
+		putenv( 'WP_PACKAGE_BANNERS=not-json-data' );
+		$this->expectException( UnexpectedValueException::class );
+		$this->provider->getBanners();
+	}
+	/**
+	 * Test invalid JSON for RTL banners
+	 */
+	public function testInvalidBannersRTL(): void {
+		putenv( 'WP_PACKAGE_BANNERS_RTL=not-json-data' );
+		$this->expectException( UnexpectedValueException::class );
+		$this->provider->getBannersRTL();
 	}
 }

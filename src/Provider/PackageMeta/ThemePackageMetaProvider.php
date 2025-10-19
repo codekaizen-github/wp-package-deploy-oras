@@ -10,8 +10,7 @@
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta;
 
-use Respect\Validation\Validator;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentPackageMetaContract;
 
 /**
@@ -21,15 +20,15 @@ use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentP
  *
  * @since 1.0.0
  */
-class ThemePackageMetaProvider implements ThemePackageMetaContract {
+class ThemePackageMetaProvider implements ThemePackageMetaProviderContract {
 
 	/**
 	 *
 	 * Unknown.
 	 *
-	 * @var ThemePackageMetaContract
+	 * @var ThemePackageMetaProviderContract
 	 */
-	protected ThemePackageMetaContract $provider;
+	protected ThemePackageMetaProviderContract $provider;
 
 	/**
 	 * Undocumented variable
@@ -41,11 +40,11 @@ class ThemePackageMetaProvider implements ThemePackageMetaContract {
 	/**
 	 * Constructor.
 	 *
-	 * @param ThemePackageMetaContract             $provider Package Meta Provider.
+	 * @param ThemePackageMetaProviderContract     $provider Package Meta Provider.
 	 * @param CommonEnvironmentPackageMetaContract $environmentProvider Environment Provider.
 	 */
 	public function __construct(
-		ThemePackageMetaContract $provider,
+		ThemePackageMetaProviderContract $provider,
 		CommonEnvironmentPackageMetaContract $environmentProvider
 	) {
 		$this->provider            = $provider;
@@ -204,6 +203,30 @@ class ThemePackageMetaProvider implements ThemePackageMetaContract {
 		return $this->provider->getDomainPath();
 	}
 	/**
+	 * Gets the icons associated with the plugin.
+	 *
+	 * @return array<string,string> An array of icon URLs, keyed by icon size.
+	 */
+	public function getIcons(): array {
+		return $this->environmentProvider->getIcons();
+	}
+	/**
+	 * Gets the banners associated with the plugin.
+	 *
+	 * @return array<string,string> An array of banner URLs, keyed by banner size.
+	 */
+	public function getBanners(): array {
+		return $this->environmentProvider->getBanners();
+	}
+	/**
+	 * Gets the right-to-left (RTL) banners associated with the plugin.
+	 *
+	 * @return array<string,string> An array of RTL banner URLs, keyed by banner size.
+	 */
+	public function getBannersRTL(): array {
+		return $this->environmentProvider->getBannersRTL();
+	}
+	/**
 	 * Gets the template for the theme.
 	 *
 	 * @return ?string The template or null if not specified.
@@ -245,6 +268,9 @@ class ThemePackageMetaProvider implements ThemePackageMetaContract {
 			'requiresPHPVersion'       => $this->getRequiresPHPVersion(),
 			'textDomain'               => $this->getTextDomain(),
 			'domainPath'               => $this->getDomainPath(),
+			'icons'                    => $this->getIcons(),
+			'banners'                  => $this->getBanners(),
+			'bannersRtl'               => $this->getBannersRTL(),
 			'template'                 => $this->getTemplate(),
 			'status'                   => $this->getStatus(),
 		];

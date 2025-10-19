@@ -25,3 +25,6 @@ A tool to deploy WordPress plugins or themes to OCI-compatible registries using 
 - **WP_PACKAGE_LICENSE_URL**: URL to the license (e.g. `https://www.gnu.org/licenses/gpl-2.0.html`)
 - **WP_PACKAGE_DESCRIPTION**: Description of the package
 - **WP_PACKAGE_SECTIONS**: Sections of the package in JSON format (e.g. `{"section1":"Section 1","section2":"Section 2"}`)
+- **WP_PACKAGE_ICONS**: Icons of the package in JSON format (e.g. `{"1x":"https://example.com/icon-128x128.png","2x":"https://example.com/icon-256x256.png"}`)
+- **WP_PACKAGE_BANNERS**: Banners of the package in JSON format (e.g. `{"1x":"https://example.com/banner-772x250.png","2x":"https://example.com/banner-1544x500.png"}`)
+- **WP_PACKAGE_BANNERS_RTL**: RTL Banners of the package in JSON format (e.g. `{"1x":"https://example.com/banner-rtl-772x250.png","2x":"https://example.com/banner-rtl-1544x500.png"}`)

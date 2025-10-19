@@ -201,4 +201,148 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		 */
 		return $decoded;
 	}
+	/**
+	 * Undocumented function
+	 *
+	 * @return array<string,string>
+	 * @throws UnexpectedValueException On invalid value.
+	 */
+	public function getIcons(): array {
+		$key   = 'WP_PACKAGE_ICONS';
+		$value = getenv( $key );
+		try {
+			Validator::create(
+				new Rules\AnyOf(
+					new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
+					new Rules\StringType(),
+				)
+			)->check( $value );
+		} catch ( ValidationException $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be of type string" );
+		}
+		/**
+		 * Value will have been validated.
+		 *
+		 * @var false|string $value
+		 * */
+		if ( false === $value ) {
+			return [];
+		}
+		$decoded = json_decode( $value, true );
+		try {
+			Validator::create(
+				new Rules\AllOf(
+					new Rules\ArrayType(),
+					new Rules\Each( new Rules\StringType() ),
+					new Rules\Call( 'array_keys', new Rules\Each( new Rules\StringType() ) ),
+				)
+			)->check( $decoded );
+		} catch ( ValidationException $e ) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be a valid JSON object with name/value pairs" );
+		}
+		/**
+		 * Value will have been validated
+		 *
+		 * @var array<string,string> $decoded
+		 */
+		return $decoded;
+	}
+	/**
+	 * Undocumented function
+	 *
+	 * @return array<string,string>
+	 * @throws UnexpectedValueException On invalid value.
+	 */
+	public function getBanners(): array {
+		$key   = 'WP_PACKAGE_BANNERS';
+		$value = getenv( $key );
+		try {
+			Validator::create(
+				new Rules\AnyOf(
+					new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
+					new Rules\StringType(),
+				)
+			)->check( $value );
+		} catch ( ValidationException $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be of type string" );
+		}
+		/**
+		 * Value will have been validated.
+		 *
+		 * @var false|string $value
+		 * */
+		if ( false === $value ) {
+			return [];
+		}
+		$decoded = json_decode( $value, true );
+		try {
+			Validator::create(
+				new Rules\AllOf(
+					new Rules\ArrayType(),
+					new Rules\Each( new Rules\StringType() ),
+					new Rules\Call( 'array_keys', new Rules\Each( new Rules\StringType() ) ),
+				)
+			)->check( $decoded );
+		} catch ( ValidationException $e ) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be a valid JSON object with name/value pairs" );
+		}
+		/**
+		 * Value will have been validated
+		 *
+		 * @var array<string,string> $decoded
+		 */
+		return $decoded;
+	}
+	/**
+	 * Undocumented function
+	 *
+	 * @return array<string,string>
+	 * @throws UnexpectedValueException On invalid value.
+	 */
+	public function getBannersRTL(): array {
+		$key   = 'WP_PACKAGE_BANNERS_RTL';
+		$value = getenv( $key );
+		try {
+			Validator::create(
+				new Rules\AnyOf(
+					new Rules\AllOf( new Rules\BoolType(), new Rules\FalseVal() ),
+					new Rules\StringType(),
+				)
+			)->check( $value );
+		} catch ( ValidationException $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be of type string" );
+		}
+		/**
+		 * Value will have been validated.
+		 *
+		 * @var false|string $value
+		 * */
+		if ( false === $value ) {
+			return [];
+		}
+		$decoded = json_decode( $value, true );
+		try {
+			Validator::create(
+				new Rules\AllOf(
+					new Rules\ArrayType(),
+					new Rules\Each( new Rules\StringType() ),
+					new Rules\Call( 'array_keys', new Rules\Each( new Rules\StringType() ) ),
+				)
+			)->check( $decoded );
+		} catch ( ValidationException $e ) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( "If set, $key must be a valid JSON object with name/value pairs" );
+		}
+		/**
+		 * Value will have been validated
+		 *
+		 * @var array<string,string> $decoded
+		 */
+		return $decoded;
+	}
 }

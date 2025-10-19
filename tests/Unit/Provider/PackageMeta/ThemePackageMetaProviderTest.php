@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;
 
-use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentPackageMetaContract;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\ThemePackageMetaProvider;
 use Mockery;
@@ -53,7 +53,23 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$licenseURLUnexpected             = null;
 		$descriptionExpected              = 'This is a test description';
 		$descriptionUnexpected            = null;
-		$localProvider                    = Mockery::mock( ThemePackageMetaContract::class );
+		$iconsExpected                    = [
+			'1x'  => 'https://example.com/icon-128x128.png',
+			'2x'  => 'https://example.com/icon-256x256.png',
+			'svg' => 'https://example.com/icon.svg',
+		];
+		$iconsUnexpected                  = [];
+		$bannersExpected                  = [
+			'1x' => 'https://example.com/banner-772x250.png',
+			'2x' => 'https://example.com/banner-1544x500.png',
+		];
+		$bannersUnexpected                = [];
+		$bannersRtlExpected               = [
+			'1x' => 'https://example.com/banner-rtl-772x250.png',
+			'2x' => 'https://example.com/banner-rtl-1544x500.png',
+		];
+		$bannersRtlUnexpected             = [];
+		$localProvider                    = Mockery::mock( ThemePackageMetaProviderContract::class );
 		$environmentProvider              = Mockery::mock( CommonEnvironmentPackageMetaContract::class );
 		$localProvider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$localProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $fullSlugExpected );
@@ -79,12 +95,18 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$localProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionUnexpected );
 		$localProvider->shouldReceive( 'getTemplate' )->with()->andReturn( $templateExpected );
 		$localProvider->shouldReceive( 'getStatus' )->with()->andReturn( $statusExpected );
+		$localProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsUnexpected );
+		$localProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersUnexpected );
+		$localProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlUnexpected );
 
 		$environmentProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$environmentProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableExpected );
 		$environmentProvider->shouldReceive( 'getLicense' )->with()->andReturn( $licenseExpected );
 		$environmentProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLExpected );
 		$environmentProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionExpected );
+		$environmentProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
+		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
+		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
 		$provider = new ThemePackageMetaProvider( $localProvider, $environmentProvider );
 		$this->assertEquals( $nameExpected, $provider->getName() );
 		$this->assertEquals( $fullSlugExpected, $provider->getFullSlug() );
@@ -107,6 +129,9 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$this->assertEquals( $tagsExpected, $provider->getTags() );
 		$this->assertEquals( $templateExpected, $provider->getTemplate() );
 		$this->assertEquals( $statusExpected, $provider->getStatus() );
+		$this->assertEquals( $iconsExpected, $provider->getIcons() );
+		$this->assertEquals( $bannersExpected, $provider->getBanners() );
+		$this->assertEquals( $bannersRtlExpected, $provider->getBannersRTL() );
 	}
 	/**
 	 * Undocumented function.
@@ -144,7 +169,23 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$licenseURLUnexpected             = null;
 		$descriptionExpected              = 'This is a test description';
 		$descriptionUnexpected            = null;
-		$localProvider                    = Mockery::mock( ThemePackageMetaContract::class );
+		$iconsExpected                    = [
+			'1x'  => 'https://example.com/icon-128x128.png',
+			'2x'  => 'https://example.com/icon-256x256.png',
+			'svg' => 'https://example.com/icon.svg',
+		];
+		$iconsUnexpected                  = [];
+		$bannersExpected                  = [
+			'1x' => 'https://example.com/banner-772x250.png',
+			'2x' => 'https://example.com/banner-1544x500.png',
+		];
+		$bannersUnexpected                = [];
+		$bannersRtlExpected               = [
+			'1x' => 'https://example.com/banner-rtl-772x250.png',
+			'2x' => 'https://example.com/banner-rtl-1544x500.png',
+		];
+		$bannersRtlUnexpected             = [];
+		$localProvider                    = Mockery::mock( ThemePackageMetaProviderContract::class );
 		$environmentProvider              = Mockery::mock( CommonEnvironmentPackageMetaContract::class );
 		$localProvider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$localProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $fullSlugExpected );
@@ -173,12 +214,18 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$localProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionUnexpected );
 		$localProvider->shouldReceive( 'getTemplate' )->with()->andReturn( $templateExpected );
 		$localProvider->shouldReceive( 'getStatus' )->with()->andReturn( $statusExpected );
+		$localProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsUnexpected );
+		$localProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersUnexpected );
+		$localProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlUnexpected );
 
 		$environmentProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$environmentProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableExpected );
 		$environmentProvider->shouldReceive( 'getLicense' )->with()->andReturn( $licenseExpected );
 		$environmentProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLExpected );
 		$environmentProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionExpected );
+		$environmentProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
+		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
+		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
 		$provider = new ThemePackageMetaProvider( $localProvider, $environmentProvider );
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 		$encoded = json_encode( $provider );
@@ -227,5 +274,11 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$this->assertEquals( $textDomainExpected, $decoded['textDomain'] );
 		$this->assertArrayHasKey( 'domainPath', $decoded );
 		$this->assertEquals( $domainPathExpected, $decoded['domainPath'] );
+		$this->assertArrayHasKey( 'icons', $decoded );
+		$this->assertEquals( $iconsExpected, $decoded['icons'] );
+		$this->assertArrayHasKey( 'banners', $decoded );
+		$this->assertEquals( $bannersExpected, $decoded['banners'] );
+		$this->assertArrayHasKey( 'bannersRtl', $decoded );
+		$this->assertEquals( $bannersRtlExpected, $decoded['bannersRtl'] );
 	}
 }
