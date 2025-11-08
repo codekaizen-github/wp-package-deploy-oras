@@ -44,10 +44,10 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 			'WP_PACKAGE_ICONS',
 			'WP_PACKAGE_BANNERS',
 			'WP_PACKAGE_BANNERS_RTL',
-			'WP_PACKAGE_ORASHUB_BASE_URL',
-			'WP_PACKAGE_IMAGE_REGISTRY',
-			'WP_PACKAGE_IMAGE_REPOSITORY',
-			'WP_PACKAGE_IMAGE_TAG',
+			'ORASHUB_BASE_URL',
+			'IMAGE_REGISTRY',
+			'IMAGE_REPOSITORY',
+			'IMAGE_TAG',
 		];
 		foreach ( $envVars as $var ) {
 			$this->originalEnvVars[ $var ] = getenv( $var );
@@ -191,16 +191,16 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 	 * Test valid download URL generation with all required variables set
 	 */
 	public function testValidDownloadUrl(): void {
-		putenv( 'WP_PACKAGE_ORASHUB_BASE_URL=https://orashub.example.com' );
-		putenv( 'WP_PACKAGE_IMAGE_REGISTRY=my-registry' );
-		putenv( 'WP_PACKAGE_IMAGE_REPOSITORY=my-repo' );
-		putenv( 'WP_PACKAGE_IMAGE_TAG=1.0.0' );
+		putenv( 'ORASHUB_BASE_URL=https://orashub.example.com' );
+		putenv( 'IMAGE_REGISTRY=my-registry' );
+		putenv( 'IMAGE_REPOSITORY=my-repo' );
+		putenv( 'IMAGE_TAG=1.0.0' );
 
 		$expectedUrl = 'https://orashub.example.com/api/v1/my-registry/my-repo/1.0.0/download';
 		$this->assertEquals( $expectedUrl, $this->provider->getDownloadURL() );
 
 		// Test with trailing slash in base URL
-		putenv( 'WP_PACKAGE_ORASHUB_BASE_URL=https://orashub.example.com/' );
+		putenv( 'ORASHUB_BASE_URL=https://orashub.example.com/' );
 		$this->assertEquals( $expectedUrl, $this->provider->getDownloadURL() );
 	}
 
@@ -211,8 +211,8 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 		$this->assertNull( $this->provider->getDownloadURL() );
 
 		// Test with only some variables set
-		putenv( 'WP_PACKAGE_ORASHUB_BASE_URL=https://orashub.example.com' );
-		putenv( 'WP_PACKAGE_IMAGE_REGISTRY=my-registry' );
+		putenv( 'ORASHUB_BASE_URL=https://orashub.example.com' );
+		putenv( 'IMAGE_REGISTRY=my-registry' );
 		$this->assertNull( $this->provider->getDownloadURL() );
 	}
 
@@ -221,18 +221,18 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 	 */
 	public function testInvalidDownloadUrlComponents(): void {
 		// Test invalid base URL
-		putenv( 'WP_PACKAGE_ORASHUB_BASE_URL=not-a-url' );
-		putenv( 'WP_PACKAGE_IMAGE_REGISTRY=my-registry' );
-		putenv( 'WP_PACKAGE_IMAGE_REPOSITORY=my-repo' );
-		putenv( 'WP_PACKAGE_IMAGE_TAG=1.0.0' );
+		putenv( 'ORASHUB_BASE_URL=not-a-url' );
+		putenv( 'IMAGE_REGISTRY=my-registry' );
+		putenv( 'IMAGE_REPOSITORY=my-repo' );
+		putenv( 'IMAGE_TAG=1.0.0' );
 		$this->expectException( UnexpectedValueException::class );
 		$this->provider->getDownloadURL();
 
 		// Reset and test empty registry
-		putenv( 'WP_PACKAGE_ORASHUB_BASE_URL=https://orashub.example.com' );
-		putenv( 'WP_PACKAGE_IMAGE_REGISTRY=' );
-		putenv( 'WP_PACKAGE_IMAGE_REPOSITORY=my-repo' );
-		putenv( 'WP_PACKAGE_IMAGE_TAG=1.0.0' );
+		putenv( 'ORASHUB_BASE_URL=https://orashub.example.com' );
+		putenv( 'IMAGE_REGISTRY=' );
+		putenv( 'IMAGE_REPOSITORY=my-repo' );
+		putenv( 'IMAGE_TAG=1.0.0' );
 		$this->expectException( UnexpectedValueException::class );
 		$this->provider->getDownloadURL();
 	}

@@ -362,10 +362,10 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 	 */
 	public function getDownloadURL(): ?string {
 		$requiredVars = [
-			'WP_PACKAGE_ORASHUB_BASE_URL',
-			'WP_PACKAGE_IMAGE_REGISTRY',
-			'WP_PACKAGE_IMAGE_REPOSITORY',
-			'WP_PACKAGE_IMAGE_TAG',
+			'ORASHUB_BASE_URL',
+			'IMAGE_REGISTRY',
+			'IMAGE_REPOSITORY',
+			'IMAGE_TAG',
 		];
 
 		// Check if all required variables are set.
@@ -376,10 +376,10 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		}
 
 		// Get and validate each variable.
-		$baseUrl    = getenv( 'WP_PACKAGE_ORASHUB_BASE_URL' );
-		$registry   = getenv( 'WP_PACKAGE_IMAGE_REGISTRY' );
-		$repository = getenv( 'WP_PACKAGE_IMAGE_REPOSITORY' );
-		$tag        = getenv( 'WP_PACKAGE_IMAGE_TAG' );
+		$baseUrl    = getenv( 'ORASHUB_BASE_URL' );
+		$registry   = getenv( 'IMAGE_REGISTRY' );
+		$repository = getenv( 'IMAGE_REPOSITORY' );
+		$tag        = getenv( 'IMAGE_TAG' );
 
 		try {
 			// Validate base URL.
