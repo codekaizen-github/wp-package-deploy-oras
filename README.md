@@ -7,7 +7,7 @@ A tool to deploy WordPress plugins or themes to OCI-compatible registries using 
 ### Required Environment Variables
 
 - **ORASHUB_BASE_URL**: Base URL for the ORAS hub server (e.g. `https://orashub.example.com`) - used for constructing download URLs
-- **IMAGE_REGISTRY_HOST**: Registry hostname (e.g. `ghcr.io`)
+- **IMAGE_REGISTRY_HOSTNAME**: Registry hostname (e.g. `ghcr.io`)
 - **IMAGE_REGISTRY_USERNAME**: Username for authentication with the registry
 - **IMAGE_REGISTRY_PASSWORD**: Password for authentication with the registry
 - **IMAGE_REPOSITORY**: Repository path (e.g. `username/my-plugin`)

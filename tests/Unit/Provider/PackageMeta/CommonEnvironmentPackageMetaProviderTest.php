@@ -45,7 +45,7 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 			'WP_PACKAGE_BANNERS',
 			'WP_PACKAGE_BANNERS_RTL',
 			'ORASHUB_BASE_URL',
-			'IMAGE_REGISTRY_HOST',
+			'IMAGE_REGISTRY_HOSTNAME',
 			'IMAGE_REPOSITORY',
 			'IMAGE_TAG',
 		];
@@ -192,7 +192,7 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 	 */
 	public function testValidDownloadUrl(): void {
 		putenv( 'ORASHUB_BASE_URL=https://orashub.example.com' );
-		putenv( 'IMAGE_REGISTRY_HOST=my-registry' );
+		putenv( 'IMAGE_REGISTRY_HOSTNAME=my-registry' );
 		putenv( 'IMAGE_REPOSITORY=my-repo' );
 		putenv( 'IMAGE_TAG=1.0.0' );
 
@@ -212,7 +212,7 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 
 		// Test with only some variables set
 		putenv( 'ORASHUB_BASE_URL=https://orashub.example.com' );
-		putenv( 'IMAGE_REGISTRY_HOST=my-registry' );
+		putenv( 'IMAGE_REGISTRY_HOSTNAME=my-registry' );
 		$this->assertNull( $this->provider->getDownloadURL() );
 	}
 
@@ -222,7 +222,7 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 	public function testInvalidDownloadUrlComponents(): void {
 		// Test invalid base URL
 		putenv( 'ORASHUB_BASE_URL=not-a-url' );
-		putenv( 'IMAGE_REGISTRY_HOST=my-registry' );
+		putenv( 'IMAGE_REGISTRY_HOSTNAME=my-registry' );
 		putenv( 'IMAGE_REPOSITORY=my-repo' );
 		putenv( 'IMAGE_TAG=1.0.0' );
 		$this->expectException( UnexpectedValueException::class );
@@ -230,7 +230,7 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 
 		// Reset and test empty registry
 		putenv( 'ORASHUB_BASE_URL=https://orashub.example.com' );
-		putenv( 'IMAGE_REGISTRY_HOST=' );
+		putenv( 'IMAGE_REGISTRY_HOSTNAME=' );
 		putenv( 'IMAGE_REPOSITORY=my-repo' );
 		putenv( 'IMAGE_TAG=1.0.0' );
 		$this->expectException( UnexpectedValueException::class );
