@@ -363,7 +363,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 	public function getDownloadURL(): ?string {
 		$requiredVars = [
 			'ORASHUB_BASE_URL',
-			'IMAGE_REGISTRY',
+			'IMAGE_REGISTRY_HOST',
 			'IMAGE_REPOSITORY',
 			'IMAGE_TAG',
 		];
@@ -377,7 +377,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 
 		// Get and validate each variable.
 		$baseUrl    = getenv( 'ORASHUB_BASE_URL' );
-		$registry   = getenv( 'IMAGE_REGISTRY' );
+		$registry   = getenv( 'IMAGE_REGISTRY_HOST' );
 		$repository = getenv( 'IMAGE_REPOSITORY' );
 		$tag        = getenv( 'IMAGE_TAG' );
 

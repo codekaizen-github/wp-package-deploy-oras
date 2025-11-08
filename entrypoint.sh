@@ -3,9 +3,9 @@ set -e
 set -x
 
 # Required ENV variables:
-#   REGISTRY_USERNAME: Registry username
-#   REGISTRY_PASSWORD: Registry password
-#   IMAGE_REGISTRY: Registry name (e.g. ghcr.io)
+#   IMAGE_REGISTRY_USERNAME: Registry username
+#   IMAGE_REGISTRY_PASSWORD: Registry password
+#   IMAGE_REGISTRY_HOST: Registry name (e.g. ghcr.io)
 #   IMAGE_REPOSITORY: Repository path (e.g. codekaizen-github/wp-github-gist-block)
 #   IMAGE_TAG: Image version tag (e.g. v1)
 
@@ -17,16 +17,16 @@ if [ -z "${WP_PACKAGE_HEADERS_FILE:-}" ]; then
     echo "WP_PACKAGE_HEADERS_FILE env variable is required!" >&2
     exit 1
 fi
-if [ -z "$REGISTRY_USERNAME" ]; then
-    echo "REGISTRY_USERNAME env variable is required!" >&2
+if [ -z "$IMAGE_REGISTRY_USERNAME" ]; then
+    echo "IMAGE_REGISTRY_USERNAME env variable is required!" >&2
     exit 1
 fi
-if [ -z "$REGISTRY_PASSWORD" ]; then
-    echo "REGISTRY_PASSWORD env variable is required!" >&2
+if [ -z "$IMAGE_REGISTRY_PASSWORD" ]; then
+    echo "IMAGE_REGISTRY_PASSWORD env variable is required!" >&2
     exit 1
 fi
-if [ -z "$IMAGE_REGISTRY" ]; then
-    echo "IMAGE_REGISTRY env variable is required!" >&2
+if [ -z "$IMAGE_REGISTRY_HOST" ]; then
+    echo "IMAGE_REGISTRY_HOST env variable is required!" >&2
     exit 1
 fi
 if [ -z "$IMAGE_REPOSITORY" ]; then
@@ -80,10 +80,10 @@ zip -r "$PACKAGE_ZIP_FILE" "$WP_PACKAGE_SLUG"
 popd >/dev/null
 
 # Construct full image name
-FULL_IMAGE_NAME="${IMAGE_REGISTRY}/${IMAGE_REPOSITORY}:${IMAGE_TAG}"
+FULL_IMAGE_NAME="${IMAGE_REGISTRY_HOST}/${IMAGE_REPOSITORY}:${IMAGE_TAG}"
 
 # Login to registry
-oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$IMAGE_REGISTRY"
+oras login --username "$IMAGE_REGISTRY_USERNAME" --password "$IMAGE_REGISTRY_PASSWORD" "$IMAGE_REGISTRY_HOST"
 
 # Change to the directory containing the zip file
 pushd "$PACKAGE_ZIP_DIR" >/dev/null
