@@ -96,7 +96,7 @@ class ThemePackageMetaProvider implements ThemePackageMetaProviderContract {
 	 * @return ?string The theme download URL or null if not available.
 	 */
 	public function getDownloadURL(): ?string {
-		return $this->provider->getDownloadURL();
+		return $this->environmentProvider->getDownloadURL();
 	}
 	/**
 	 * Gets the WordPress version the theme has been tested with.

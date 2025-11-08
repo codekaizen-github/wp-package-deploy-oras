@@ -88,7 +88,6 @@ class PluginPackageMetaProviderTest extends TestCase {
 			->with()
 			->andReturn( $requiresWordPressVersionExpected );
 		$localProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPHPVersionExpected );
-		$localProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$localProvider->shouldReceive( 'getRequiresPlugins' )->with()->andReturn( $requiresPluginsExpected );
 		$localProvider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
 		$localProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedUnexpected );
@@ -110,6 +109,7 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$environmentProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
 		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
 		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
+		$environmentProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$provider = new PluginPackageMetaProvider( $localProvider, $environmentProvider );
 		$this->assertEquals( $nameExpected, $provider->getName() );
 		$this->assertEquals( $fullSlugExpected, $provider->getFullSlug() );
@@ -208,7 +208,6 @@ class PluginPackageMetaProviderTest extends TestCase {
 			->with()
 			->andReturn( $requiresWordPressVersionExpected );
 		$localProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPHPVersionExpected );
-		$localProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$localProvider->shouldReceive( 'getRequiresPlugins' )->with()->andReturn( $requiresPluginsExpected );
 		$localProvider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
 		$localProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedUnexpected );
@@ -230,6 +229,7 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$environmentProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
 		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
 		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
+		$environmentProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$provider = new PluginPackageMetaProvider( $localProvider, $environmentProvider );
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 		$encoded = json_encode( $provider );

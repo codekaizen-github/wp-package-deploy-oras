@@ -93,7 +93,7 @@ class PluginPackageMetaProvider implements PluginPackageMetaProviderContract {
 	 * @return ?string The plugin download URL or null if not available.
 	 */
 	public function getDownloadURL(): ?string {
-		return $this->provider->getDownloadURL();
+		return $this->environmentProvider->getDownloadURL();
 	}
 	/**
 	 * Gets the WordPress version the plugin has been tested with.

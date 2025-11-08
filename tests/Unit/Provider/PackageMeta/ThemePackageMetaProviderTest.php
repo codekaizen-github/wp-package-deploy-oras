@@ -86,7 +86,6 @@ class ThemePackageMetaProviderTest extends TestCase {
 			->with()
 			->andReturn( $requiresWordPressVersionExpected );
 		$localProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPHPVersionExpected );
-		$localProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$localProvider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
 		$localProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedUnexpected );
 		$localProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableUnexpected );
@@ -107,6 +106,7 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$environmentProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
 		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
 		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
+		$environmentProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$provider = new ThemePackageMetaProvider( $localProvider, $environmentProvider );
 		$this->assertEquals( $nameExpected, $provider->getName() );
 		$this->assertEquals( $fullSlugExpected, $provider->getFullSlug() );
@@ -205,7 +205,6 @@ class ThemePackageMetaProviderTest extends TestCase {
 			->with()
 			->andReturn( $requiresWordPressVersionExpected );
 		$localProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPHPVersionExpected );
-		$localProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$localProvider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
 		$localProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedUnexpected );
 		$localProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableUnexpected );
@@ -226,6 +225,7 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$environmentProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
 		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
 		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
+		$environmentProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
 		$provider = new ThemePackageMetaProvider( $localProvider, $environmentProvider );
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 		$encoded = json_encode( $provider );

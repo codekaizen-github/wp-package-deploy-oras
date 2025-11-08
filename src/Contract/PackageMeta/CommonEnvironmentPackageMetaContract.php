@@ -7,6 +7,8 @@
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta;
 
+use UnexpectedValueException;
+
 interface CommonEnvironmentPackageMetaContract {
 	/**
 	 * Undocumented function
@@ -62,4 +64,12 @@ interface CommonEnvironmentPackageMetaContract {
 	 * @return array<string,string>
 	 */
 	public function getBannersRTL(): array;
+
+	/**
+	 * Gets the URL to download the package from ORAS registry.
+	 *
+	 * @return string|null The download URL for the package or null if environment variables are not configured.
+	 * @throws UnexpectedValueException If environment variables are configured but invalid.
+	 */
+	public function getDownloadURL(): ?string;
 }

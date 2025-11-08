@@ -45,6 +45,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		 * */
 		return false === $value ? null : $value;
 	}
+
 	/**
 	 * Undocumented function
 	 *
@@ -72,6 +73,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		 * */
 		return false === $value ? null : $value;
 	}
+
 	/**
 	 * Undocumented function
 	 *
@@ -99,6 +101,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		 * */
 		return false === $value ? null : $value;
 	}
+
 	/**
 	 * Undocumented function
 	 *
@@ -126,6 +129,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		 * */
 		return false === $value ? null : $value;
 	}
+
 	/**
 	 * Undocumented function
 	 *
@@ -153,6 +157,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		 * */
 		return false === $value ? null : $value;
 	}
+
 	/**
 	 * Undocumented function
 	 *
@@ -191,7 +196,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 				)
 			)->check( $decoded );
 		} catch ( ValidationException $e ) {
-						// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new UnexpectedValueException( "If set, $key must be a valid JSON object with name/value pairs" );
 		}
 		/**
@@ -201,6 +206,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		 */
 		return $decoded;
 	}
+
 	/**
 	 * Undocumented function
 	 *
@@ -239,7 +245,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 				)
 			)->check( $decoded );
 		} catch ( ValidationException $e ) {
-						// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new UnexpectedValueException( "If set, $key must be a valid JSON object with name/value pairs" );
 		}
 		/**
@@ -249,6 +255,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		 */
 		return $decoded;
 	}
+
 	/**
 	 * Undocumented function
 	 *
@@ -287,7 +294,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 				)
 			)->check( $decoded );
 		} catch ( ValidationException $e ) {
-						// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new UnexpectedValueException( "If set, $key must be a valid JSON object with name/value pairs" );
 		}
 		/**
@@ -297,6 +304,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		 */
 		return $decoded;
 	}
+
 	/**
 	 * Undocumented function
 	 *
@@ -335,7 +343,7 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 				)
 			)->check( $decoded );
 		} catch ( ValidationException $e ) {
-						// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new UnexpectedValueException( "If set, $key must be a valid JSON object with name/value pairs" );
 		}
 		/**
@@ -344,5 +352,68 @@ class CommonEnvironmentPackageMetaProvider implements CommonEnvironmentPackageMe
 		 * @var array<string,string> $decoded
 		 */
 		return $decoded;
+	}
+
+	/**
+	 * Gets the URL to download the package from ORAS registry.
+	 *
+	 * @return string|null The download URL for the package or null if environment variables are not set.
+	 * @throws UnexpectedValueException If environment variables are configured but invalid.
+	 */
+	public function getDownloadURL(): ?string {
+		$requiredVars = [
+			'WP_PACKAGE_ORASHUB_BASE_URL',
+			'WP_PACKAGE_IMAGE_REGISTRY',
+			'WP_PACKAGE_IMAGE_REPOSITORY',
+			'WP_PACKAGE_IMAGE_TAG',
+		];
+
+		// Check if all required variables are set.
+		foreach ( $requiredVars as $var ) {
+			if ( false === getenv( $var ) ) {
+				return null;
+			}
+		}
+
+		// Get and validate each variable.
+		$baseUrl    = getenv( 'WP_PACKAGE_ORASHUB_BASE_URL' );
+		$registry   = getenv( 'WP_PACKAGE_IMAGE_REGISTRY' );
+		$repository = getenv( 'WP_PACKAGE_IMAGE_REPOSITORY' );
+		$tag        = getenv( 'WP_PACKAGE_IMAGE_TAG' );
+
+		try {
+			// Validate base URL.
+			Validator::create(
+				new Rules\Url()
+			)->check( $baseUrl );
+
+			// Validate registry, repository, and tag are non-empty strings.
+			foreach ( [ $registry, $repository, $tag ] as $value ) {
+				Validator::create(
+					new Rules\AllOf(
+						new Rules\StringType(),
+						new Rules\NotEmpty()
+					)
+				)->check( $value );
+			}
+		} catch ( ValidationException $e ) {
+			// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException(
+				'Invalid ORAS environment variables configuration: ' . $e->getMessage()
+			);
+			// phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
+		}
+		/**
+		 * Values will have been validated
+		 *
+		 * @var string $baseUrl
+		 * @var string $registry
+		 * @var string $repository
+		 * @var string $tag
+		 */
+		// Construct download URL using the template format.
+		return rtrim( $baseUrl, '/' ) . '/api/v1/' .
+			implode( '/', [ $registry, $repository, $tag ] ) .
+			'/download';
 	}
 }
