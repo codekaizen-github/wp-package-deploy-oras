@@ -5,7 +5,9 @@ set -x
 # Required ENV variables:
 #   REGISTRY_USERNAME: Registry username
 #   REGISTRY_PASSWORD: Registry password
-#   IMAGE_NAME: Image name (e.g. ghcr.io/codekaizen-github/wp-github-gist-block:v1)
+#   IMAGE_REGISTRY: Registry name (e.g. ghcr.io)
+#   IMAGE_REPOSITORY: Repository path (e.g. codekaizen-github/wp-github-gist-block)
+#   IMAGE_TAG: Image version tag (e.g. v1)
 
 if [ -z "$WP_PACKAGE_SLUG" ]; then
     echo "WP_PACKAGE_SLUG env variable is required!" >&2
@@ -23,8 +25,16 @@ if [ -z "$REGISTRY_PASSWORD" ]; then
     echo "REGISTRY_PASSWORD env variable is required!" >&2
     exit 1
 fi
-if [ -z "$IMAGE_NAME" ]; then
-    echo "IMAGE_NAME env variable is required!" >&2
+if [ -z "$IMAGE_REGISTRY" ]; then
+    echo "IMAGE_REGISTRY env variable is required!" >&2
+    exit 1
+fi
+if [ -z "$IMAGE_REPOSITORY" ]; then
+    echo "IMAGE_REPOSITORY env variable is required!" >&2
+    exit 1
+fi
+if [ -z "$IMAGE_TAG" ]; then
+    echo "IMAGE_TAG env variable is required!" >&2
     exit 1
 fi
 
@@ -69,13 +79,16 @@ pushd "$PACKAGE_LINK_DIR" >/dev/null
 zip -r "$PACKAGE_ZIP_FILE" "$WP_PACKAGE_SLUG"
 popd >/dev/null
 
+# Construct full image name
+FULL_IMAGE_NAME="${IMAGE_REGISTRY}/${IMAGE_REPOSITORY}:${IMAGE_TAG}"
+
 # Login to registry
-oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$(echo "$IMAGE_NAME" | cut -d'/' -f1)"
+oras login --username "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD" "$IMAGE_REGISTRY"
 
 # Change to the directory containing the zip file
 pushd "$PACKAGE_ZIP_DIR" >/dev/null
 # Push the zip file with annotations using only the filename (relative path)
-oras push "$IMAGE_NAME" \
+oras push "$FULL_IMAGE_NAME" \
     "${PACKAGE_ZIP_NAME}:application/zip" \
     --annotation "$META_ANNOTATION_KEY=$PACKAGE_METADATA"
 popd >/dev/null

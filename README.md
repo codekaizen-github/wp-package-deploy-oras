@@ -6,12 +6,15 @@ A tool to deploy WordPress plugins or themes to OCI-compatible registries using 
 
 ### Required Environment Variables
 
+- **ORASHUB_BASE_URL**: Base URL for the ORAS hub server (e.g. `https://orashub.example.com`) - used for constructing download URLs
+- **REGISTRY_USERNAME**: Username for authentication with the registry
+- **REGISTRY_PASSWORD**: Password for authentication with the registry
+- **IMAGE_REGISTRY**: Registry name (e.g. `ghcr.io`)
+- **IMAGE_REPOSITORY**: Repository path (e.g. `username/my-plugin`)
+- **IMAGE_TAG**: Version tag for the image (e.g. `v1.0.0`)
 - **WP_PACKAGE_SLUG**: Slug of the WordPress package (e.g. `my-plugin` or `my-theme`)
 - **WP_PACKAGE_TYPE**: Type of WordPress package - either 'plugin' or 'theme'
 - **WP_PACKAGE_HEADERS_FILE**: Relative (to `WP_PACKAGE_PATH`) file path to the WordPress file containing the package headers (e.g. `my-plugin.php` or `./my-plugin.php` or `style.css` or `./style.css`)
-- **REGISTRY_USERNAME**: Username for authentication with the registry
-- **REGISTRY_PASSWORD**: Password for authentication with the registry
-- **IMAGE_NAME**: Image name with optional tag (e.g. `ghcr.io/username/my-plugin:v1.0.0`)
 
 
 ### Optional Environment Variables
