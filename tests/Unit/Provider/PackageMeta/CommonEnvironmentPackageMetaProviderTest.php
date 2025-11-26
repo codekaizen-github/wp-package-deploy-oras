@@ -33,7 +33,6 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 	 * Save original environment variables and set up provider before each test
 	 */
 	protected function setUp(): void {
-		parent::setUp();
 		$envVars = [
 			'WP_PACKAGE_TESTED',
 			'WP_PACKAGE_STABLE',
@@ -67,7 +66,6 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 				putenv( "$key=$value" );
 			}
 		}
-		parent::tearDown();
 	}
 
 	/**

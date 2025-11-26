@@ -11,7 +11,6 @@ use CodeKaizen\WPPackageDeployORASTests\Helper\FixturePathHelper;
 use CodekaizenGithub\WPPackageDeployORAS\Factory\PackageMetaJSONSerializableFactory;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\ThemePackageMetaProvider;
-use JsonSerializable;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -33,7 +32,6 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	 * Save original environment variables and set up provider before each test
 	 */
 	protected function setUp(): void {
-		parent::setUp();
 		$envVars = [
 			'WP_PACKAGE_SLUG',
 			'WP_PACKAGE_TYPE',
@@ -56,7 +54,6 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 				putenv( "$key=$value" );
 			}
 		}
-		parent::tearDown();
 	}
 	/**
 	 * Test all methods with valid values
