@@ -7,12 +7,12 @@
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Parser\Slug;
 
-use CodeKaizen\WPPackageMetaProviderLocal\Contract\Parser\SlugParserContract;
+use CodeKaizen\WPPackageMetaProviderLocal\Contract\Value\SlugValueContract;
 
 /**
  * Undocumented class
  */
-class ParentAndFilePathSlugParser implements SlugParserContract {
+class ParentAndFilePathSlugParser implements SlugValueContract {
 	/**
 	 * Undocumented variable
 	 *

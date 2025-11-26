@@ -7,7 +7,7 @@
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta;
 
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentPackageMetaContract;
 
 /**
@@ -17,15 +17,15 @@ use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentP
  *
  * @since 1.0.0
  */
-class PluginPackageMetaProvider implements PluginPackageMetaProviderContract {
+class PluginPackageMetaProvider implements PluginPackageMetaValueContract {
 
 	/**
 	 *
 	 * Unknown.
 	 *
-	 * @var PluginPackageMetaProviderContract
+	 * @var PluginPackageMetaValueContract
 	 */
-	protected PluginPackageMetaProviderContract $provider;
+	protected PluginPackageMetaValueContract $provider;
 
 	/**
 	 * Undocumented variable
@@ -37,11 +37,11 @@ class PluginPackageMetaProvider implements PluginPackageMetaProviderContract {
 	/**
 	 * Constructor.
 	 *
-	 * @param PluginPackageMetaProviderContract    $provider Package Meta Provider.
+	 * @param PluginPackageMetaValueContract       $provider Package Meta Provider.
 	 * @param CommonEnvironmentPackageMetaContract $environmentProvider Environment Provider.
 	 */
 	public function __construct(
-		PluginPackageMetaProviderContract $provider,
+		PluginPackageMetaValueContract $provider,
 		CommonEnvironmentPackageMetaContract $environmentProvider
 	) {
 		$this->provider            = $provider;

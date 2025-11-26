@@ -7,8 +7,8 @@
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Factory;
 
-use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1;
-use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryV1;
+use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryV1;
+use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryV1;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\Factory\JSONSerializableFactoryContract;
 use CodekaizenGithub\WPPackageDeployORAS\Parser\Slug\ParentAndFilePathSlugParser;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\CommonEnvironmentPackageMetaProvider;
@@ -103,19 +103,23 @@ class PackageMetaJSONSerializableFactory implements JSONSerializableFactoryContr
 		$environmentProvider = new CommonEnvironmentPackageMetaProvider();
 		switch ( $packageType ) {
 			case 'plugin':
-				$providerFactory = new PluginPackageMetaProviderFactoryV1(
+				$serviceFactory = new PluginPackageMetaValueServiceFactoryV1(
 					$filePath,
 					$slugParser,
 					$this->logger
 				);
-				return new PluginPackageMetaProvider( $providerFactory->create(), $environmentProvider );
+				$service        = $serviceFactory->create();
+				$value          = $service->getPackageMeta();
+				return new PluginPackageMetaProvider( $value, $environmentProvider );
 			case 'theme':
-				$providerFactory = new ThemePackageMetaProviderFactoryV1(
+				$serviceFactory = new ThemePackageMetaValueServiceFactoryV1(
 					$filePath,
 					$slugParser,
 					$this->logger
 				);
-				return new ThemePackageMetaProvider( $providerFactory->create(), $environmentProvider );
+				$service        = $serviceFactory->create();
+				$value          = $service->getPackageMeta();
+				return new ThemePackageMetaProvider( $value, $environmentProvider );
 			default:
 				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message not displayed to end users.
 				throw new UnexpectedValueException( 'Unexpected package type: ' . $packageType );

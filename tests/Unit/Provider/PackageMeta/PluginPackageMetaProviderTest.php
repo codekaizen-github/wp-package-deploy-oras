@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;
 
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentPackageMetaContract;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider;
 use Mockery;
@@ -70,7 +70,7 @@ class PluginPackageMetaProviderTest extends TestCase {
 			'2x' => 'https://example.com/banner-rtl-1544x500.png',
 		];
 		$bannersRtlUnexpected             = [];
-		$localProvider                    = Mockery::mock( PluginPackageMetaProviderContract::class );
+		$localProvider                    = Mockery::mock( PluginPackageMetaValueContract::class );
 		$environmentProvider              = Mockery::mock( CommonEnvironmentPackageMetaContract::class );
 		$localProvider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$localProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $fullSlugExpected );
@@ -190,7 +190,7 @@ class PluginPackageMetaProviderTest extends TestCase {
 			'2x' => 'https://example.com/banner-rtl-1544x500.png',
 		];
 		$bannersRtlUnexpected             = [];
-		$localProvider                    = Mockery::mock( PluginPackageMetaProviderContract::class );
+		$localProvider                    = Mockery::mock( PluginPackageMetaValueContract::class );
 		$environmentProvider              = Mockery::mock( CommonEnvironmentPackageMetaContract::class );
 		$localProvider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$localProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $fullSlugExpected );
