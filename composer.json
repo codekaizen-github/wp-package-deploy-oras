@@ -35,8 +35,8 @@
         "php": "^8.1",
         "respect/validation": "^2.4",
         "monolog/monolog": "^3.9",
-        "codekaizen/wp-package-meta-provider-contract": "^1.0",
-        "codekaizen/wp-package-meta-provider-local": "^1.0"
+        "codekaizen/wp-package-meta-provider-contract": "^2.0",
+        "codekaizen/wp-package-meta-provider-local": "^2.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.1",
