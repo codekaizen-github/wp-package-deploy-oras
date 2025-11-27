@@ -2,14 +2,14 @@
 /**
  * Interface.
  *
- * @package  CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta
+ * @package  CodekaizenGithub\WPPackageDeployORAS\Contract\Value\CommonPackageMeta
  */
 
-namespace CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta;
+namespace CodekaizenGithub\WPPackageDeployORAS\Contract\Value\CommonPackageMeta;
 
 use UnexpectedValueException;
 
-interface CommonEnvironmentPackageMetaValueContract {
+interface EnvironmentCommonPackageMetaValueContract {
 	/**
 	 * Undocumented function
 	 *

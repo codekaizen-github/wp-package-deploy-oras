@@ -7,7 +7,7 @@
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta;
 
-use CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta\CommonEnvironmentPackageMetaValueContract;
+use CodekaizenGithub\WPPackageDeployORAS\Contract\Value\CommonPackageMeta\EnvironmentCommonPackageMetaValueContract;
 use Respect\Validation\Rules;
 use Respect\Validation\Validator;
 use CodekaizenGithub\WPPackageDeployORAS\Validator\Rule\Version\FlexibleSemanticVersionRule;
@@ -17,7 +17,7 @@ use UnexpectedValueException;
 /**
  * Undocumented class
  */
-class CommonEnvironmentPackageMetaValue implements CommonEnvironmentPackageMetaValueContract {
+class CommonEnvironmentPackageMetaValue implements EnvironmentCommonPackageMetaValueContract {
 	/**
 	 * Undocumented function
 	 *
