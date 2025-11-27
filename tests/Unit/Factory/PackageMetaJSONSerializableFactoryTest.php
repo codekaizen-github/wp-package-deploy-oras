@@ -8,10 +8,17 @@
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Factory;
 
 use CodeKaizen\WPPackageDeployORASTests\Helper\FixturePathHelper;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\ThemePackageMetaValueContract;
+use CodekaizenGithub\WPPackageDeployORAS\Contract\Factory\JSONSerializableFactoryContract;
 use CodekaizenGithub\WPPackageDeployORAS\Factory\PackageMetaJSONSerializableFactory;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\ThemePackageMetaProvider;
 use Mockery;
+use Mockery\Mock;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use UnexpectedValueException;
@@ -28,6 +35,88 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 	 */
 	private array $originalEnvVars = [];
 
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var ?MockInterface
+	 */
+	protected ?MockInterface $slugValue;
+
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var ?MockInterface
+	 */
+	protected ?MockInterface $environmentProvider;
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var ?MockInterface
+	 */
+	protected ?MockInterface $pluginPackageMetaValueServiceFactory;
+
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var ?MockInterface
+	 */
+	protected ?MockInterface $themePackageMetaValueServiceFactory;
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var (PluginPackageMetaValueServiceContract&MockInterface)|null
+	 */
+	protected ?PluginPackageMetaValueServiceContract $pluginPackageMetaValueService;
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var (ThemePackageMetaValueServiceContract&MockInterface)|null
+	 */
+	protected ?ThemePackageMetaValueServiceContract $themePackageMetaValueService;
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var (PluginPackageMetaValueContract&MockInterface)|null
+	 */
+	protected ?PluginPackageMetaValueContract $pluginPackageMetaValue;
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var (ThemePackageMetaValueContract&MockInterface)|null
+	 */
+	protected ?ThemePackageMetaValueContract $themePackageMetaValue;
+
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var ?MockInterface
+	 */
+	protected ?MockInterface $pluginPackageMetaProvider;
+
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var ?MockInterface
+	 */
+	protected ?MockInterface $themePackageMetaProvider;
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var (LoggerInterface&MockInterface)|null
+	 */
+	protected ?LoggerInterface $logger = null;
+
 	/**
 	 * Save original environment variables and set up provider before each test
 	 */
@@ -41,12 +130,56 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 			$this->originalEnvVars[ $var ] = getenv( $var );
 			putenv( $var );
 		}
+		$this->slugValue = Mockery::mock(
+			'overload:CodekaizenGithub\WPPackageDeployORAS\Parser\Slug\ParentAndFilePathSlugParser',
+			'CodeKaizen\WPPackageMetaProviderLocal\Contract\Value\SlugValueContract'
+		);
+		$this->environmentProvider = Mockery::mock(
+			'overload:CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\CommonEnvironmentPackageMetaProvider',
+			'CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentPackageMetaContract'
+		);
+		$this->pluginPackageMetaValueServiceFactory = Mockery::mock(
+			'overload:CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryV1',
+			'CodeKaizen\WPPackageMetaProviderLocal\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract'
+		);
+		$this->themePackageMetaValueServiceFactory = Mockery::mock(
+			'overload:CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryV1',
+			'CodeKaizen\WPPackageMetaProviderLocal\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract'
+		);
+		$this->pluginPackageMetaValueService = Mockery::mock(PluginPackageMetaValueServiceContract::class);
+		$this->themePackageMetaValueService = Mockery::mock(ThemePackageMetaValueServiceContract::class);
+		$this->pluginPackageMetaValue = Mockery::mock(PluginPackageMetaValueContract::class);
+		$this->themePackageMetaValue = Mockery::mock(ThemePackageMetaValueContract::class);
+		$this->pluginPackageMetaProvider = Mockery::mock(
+			'overload:CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider',
+			'CodekaizenGithub\WPPackageDeployORAS\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract',
+			'JSONSerializable'
+		);
+		$this->themePackageMetaProvider = Mockery::mock(
+			'overload:CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\ThemePackageMetaProvider',
+			'CodekaizenGithub\WPPackageDeployORAS\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract',
+			'JSONSerializable'
+		);
+		$this->getPluginPackageMetaValueServiceFactory()->allows([
+			'create' => $this->pluginPackageMetaValueService,
+		]);
+		$this->getThemePackageMetaValueServiceFactory()->allows([
+			'create' => $this->themePackageMetaValueService,
+		]);
+		$this->getPluginPackageMetaValueService()->allows([
+			'getPackageMeta' => $this->pluginPackageMetaValue,
+		]);
+		$this->getThemePackageMetaValueService()->allows([
+			'getPackageMeta' => $this->themePackageMetaValue,
+		]);
+		$this->logger = Mockery::mock(LoggerInterface::class);
 	}
 
 	/**
 	 * Restore original environment after each test
 	 */
 	protected function tearDown(): void {
+		Mockery::close();
 		foreach ( $this->originalEnvVars as $key => $value ) {
 			if ( false === $value ) {
 				putenv( $key );
@@ -55,69 +188,192 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 			}
 		}
 	}
+
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return MockInterface
+	 */
+	public function getSlugValue(): MockInterface {
+		self::assertNotNull( $this->slugValue );
+		return $this->slugValue;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return MockInterface
+	 */
+	public function getEnvironmentProvider(): MockInterface {
+		self::assertNotNull( $this->environmentProvider );
+		return $this->environmentProvider;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return MockInterface
+	 */
+	public function getPluginPackageMetaValueServiceFactory(): MockInterface {
+		self::assertNotNull( $this->pluginPackageMetaValueServiceFactory );
+		return $this->pluginPackageMetaValueServiceFactory;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return MockInterface
+	 */
+	public function getThemePackageMetaValueServiceFactory(): MockInterface {
+		self::assertNotNull( $this->themePackageMetaValueServiceFactory );
+		return $this->themePackageMetaValueServiceFactory;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return PluginPackageMetaValueServiceContract&MockInterface
+	 */
+	public function getPluginPackageMetaValueService(): PluginPackageMetaValueServiceContract&MockInterface {
+		self::assertNotNull( $this->pluginPackageMetaValueService );
+		return $this->pluginPackageMetaValueService;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return ThemePackageMetaValueServiceContract&MockInterface
+	 */
+	public function getThemePackageMetaValueService(): ThemePackageMetaValueServiceContract&MockInterface {
+		self::assertNotNull( $this->themePackageMetaValueService );
+		return $this->themePackageMetaValueService;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return PluginPackageMetaValueContract&MockInterface
+	 */
+	public function getPluginPackageMetaValue(): PluginPackageMetaValueContract&MockInterface {
+		self::assertNotNull( $this->pluginPackageMetaValue );
+		return $this->pluginPackageMetaValue;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return ThemePackageMetaValueContract&MockInterface
+	 */
+	public function getThemePackageMetaValue(): ThemePackageMetaValueContract&MockInterface {
+		self::assertNotNull( $this->themePackageMetaValue );
+		return $this->themePackageMetaValue;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return MockInterface
+	 */
+	public function getPluginPackageMetaProvider(): MockInterface {
+		self::assertNotNull( $this->pluginPackageMetaProvider );
+		return $this->pluginPackageMetaProvider;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return MockInterface
+	 */
+	public function getThemePackageMetaProvider(): MockInterface {
+		self::assertNotNull( $this->themePackageMetaProvider );
+		return $this->themePackageMetaProvider;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return LoggerInterface&MockInterface
+	 */
+	public function getLogger(): LoggerInterface&MockInterface {
+		self::assertNotNull( $this->logger );
+		return $this->logger;
+	}
+
 	/**
 	 * Test all methods with valid values
+	 *
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testAllPluginValid(): void {
 		putenv('WP_PACKAGE_SLUG=my-plugin');
 		putenv( 'WP_PACKAGE_TYPE=plugin' );
 		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/real.txt' );
-		$logger = Mockery::mock(LoggerInterface::class);
-		$factory = new PackageMetaJSONSerializableFactory($logger);
-		$provider = $factory->create();
+		$sut = new PackageMetaJSONSerializableFactory($this->getLogger());
+		$provider = $sut->create();
 		$this->assertInstanceOf(PluginPackageMetaProvider::class, $provider);
 	}
+
 	/**
 	 * Test all methods with valid values
+	 *
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testAllThemeValid(): void {
 		putenv('WP_PACKAGE_SLUG=my-theme');
 		putenv( 'WP_PACKAGE_TYPE=theme' );
 		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/real.txt' );
-		$logger = Mockery::mock(LoggerInterface::class);
-		$factory = new PackageMetaJSONSerializableFactory($logger);
-		$provider = $factory->create();
+		$sut = new PackageMetaJSONSerializableFactory($this->getLogger());
+		$provider = $sut->create();
 		$this->assertInstanceOf(ThemePackageMetaProvider::class, $provider);
 	}
+
 	/**
 	 * Undocumented function
 	 *
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 * @return void
 	 */
 	public function testPackageTypeInvalid(): void {
 		putenv('WP_PACKAGE_SLUG=my-plugin');
 		putenv( 'WP_PACKAGE_TYPE=asdf' );
 		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/real.txt' );
-		$logger = Mockery::mock(LoggerInterface::class);
-		$factory = new PackageMetaJSONSerializableFactory($logger);
+		$sut = new PackageMetaJSONSerializableFactory($this->getLogger());
 		$this->expectException(UnexpectedValueException::class);
-		$factory->create();
+		$sut->create();
 	}
+
 	/**
 	 * Undocumented function
 	 *
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 * @return void
 	 */
 	public function testFilePathInvalid(): void {
 		putenv('WP_PACKAGE_SLUG=my-plugin');
 		putenv( 'WP_PACKAGE_TYPE=plugin' );
 		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/fake.txt' );
-		$logger = Mockery::mock(LoggerInterface::class);
-		$factory = new PackageMetaJSONSerializableFactory($logger);
+		$sut = new PackageMetaJSONSerializableFactory($this->getLogger());
 		$this->expectException(UnexpectedValueException::class);
-		$factory->create();
+		$sut->create();
 	}
-		/**
+
+	/**
 	 * Undocumented function
 	 *
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 * @return void
 	 */
 	public function testPackageSlugInvalid(): void {
 		putenv( 'WP_PACKAGE_TYPE=plugin' );
 		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/fake.txt' );
-		$logger = Mockery::mock(LoggerInterface::class);
-		$factory = new PackageMetaJSONSerializableFactory($logger);
+		$sut = new PackageMetaJSONSerializableFactory($this->getLogger());
 		$this->expectException(UnexpectedValueException::class);
-		$factory->create();
+		$sut->create();
 	}
 }
