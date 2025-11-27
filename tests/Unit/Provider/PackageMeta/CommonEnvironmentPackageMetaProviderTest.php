@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;
 
-use CodekaizenGithub\WPPackageDeployORAS\Value\CommonPackageMeta\EnvironmentCommonPackageMetaValue;
+use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Common\EnvironmentCommonPackageMetaValue;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 

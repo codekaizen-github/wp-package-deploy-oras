@@ -133,8 +133,8 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 			'CodeKaizen\WPPackageMetaProviderLocal\Contract\Value\SlugValueContract'
 		);
 		$this->environmentProvider = Mockery::mock(
-			'overload:CodekaizenGithub\WPPackageDeployORAS\Value\CommonPackageMeta\EnvironmentCommonPackageMetaValue',
-			'CodekaizenGithub\WPPackageDeployORAS\Contract\Value\CommonPackageMeta\EnvironmentCommonPackageMetaValueContract'
+			'overload:CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Common\EnvironmentCommonPackageMetaValue',
+			'CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta\CommonPackageMetaValueContract'
 		);
 		$this->pluginPackageMetaValueServiceFactory = Mockery::mock(
 			'overload:CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryV1',

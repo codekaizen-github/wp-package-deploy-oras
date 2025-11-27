@@ -11,7 +11,7 @@ use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Plug
 use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryV1;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\Factory\JSONSerializableFactoryContract;
 use CodekaizenGithub\WPPackageDeployORAS\Parser\Slug\ParentAndFilePathSlugParser;
-use CodekaizenGithub\WPPackageDeployORAS\Value\CommonPackageMeta\EnvironmentCommonPackageMetaValue;
+use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Common\EnvironmentCommonPackageMetaValue;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\ThemePackageMetaProvider;
 use JsonSerializable;
