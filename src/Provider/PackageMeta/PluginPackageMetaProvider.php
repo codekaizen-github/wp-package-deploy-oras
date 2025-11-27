@@ -8,7 +8,7 @@
 namespace CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta;
 
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
-use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentPackageMetaContract;
+use CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta\CommonEnvironmentPackageMetaValueContract;
 
 /**
  * Provider for local WordPress plugin package metadata.
@@ -30,19 +30,19 @@ class PluginPackageMetaProvider implements PluginPackageMetaValueContract {
 	/**
 	 * Undocumented variable
 	 *
-	 * @var CommonEnvironmentPackageMetaContract
+	 * @var CommonEnvironmentPackageMetaValueContract
 	 */
-	protected CommonEnvironmentPackageMetaContract $environmentProvider;
+	protected CommonEnvironmentPackageMetaValueContract $environmentProvider;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param PluginPackageMetaValueContract       $provider Package Meta Provider.
-	 * @param CommonEnvironmentPackageMetaContract $environmentProvider Environment Provider.
+	 * @param PluginPackageMetaValueContract            $provider Package Meta Provider.
+	 * @param CommonEnvironmentPackageMetaValueContract $environmentProvider Environment Provider.
 	 */
 	public function __construct(
 		PluginPackageMetaValueContract $provider,
-		CommonEnvironmentPackageMetaContract $environmentProvider
+		CommonEnvironmentPackageMetaValueContract $environmentProvider
 	) {
 		$this->provider            = $provider;
 		$this->environmentProvider = $environmentProvider;

@@ -11,7 +11,7 @@
 namespace CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta;
 
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\ThemePackageMetaValueContract;
-use CodekaizenGithub\WPPackageDeployORAS\Contract\PackageMeta\CommonEnvironmentPackageMetaContract;
+use CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta\CommonEnvironmentPackageMetaValueContract;
 
 /**
  * Provider for local WordPress theme package metadata.
@@ -33,19 +33,19 @@ class ThemePackageMetaProvider implements ThemePackageMetaValueContract {
 	/**
 	 * Undocumented variable
 	 *
-	 * @var CommonEnvironmentPackageMetaContract
+	 * @var CommonEnvironmentPackageMetaValueContract
 	 */
-	protected CommonEnvironmentPackageMetaContract $environmentProvider;
+	protected CommonEnvironmentPackageMetaValueContract $environmentProvider;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param ThemePackageMetaValueContract        $provider Package Meta Provider.
-	 * @param CommonEnvironmentPackageMetaContract $environmentProvider Environment Provider.
+	 * @param ThemePackageMetaValueContract             $provider Package Meta Provider.
+	 * @param CommonEnvironmentPackageMetaValueContract $environmentProvider Environment Provider.
 	 */
 	public function __construct(
 		ThemePackageMetaValueContract $provider,
-		CommonEnvironmentPackageMetaContract $environmentProvider
+		CommonEnvironmentPackageMetaValueContract $environmentProvider
 	) {
 		$this->provider            = $provider;
 		$this->environmentProvider = $environmentProvider;
