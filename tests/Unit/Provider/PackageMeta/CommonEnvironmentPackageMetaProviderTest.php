@@ -7,18 +7,18 @@
 
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;
 
-use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\CommonEnvironmentPackageMetaProvider;
+use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\CommonEnvironmentPackageMetaValue;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
 /**
  * Test environment variable reading and validation
  */
-class CommonEnvironmentPackageMetaProviderTest extends TestCase {
+class CommonEnvironmentPackageMetaValueTest extends TestCase {
 	/**
 	 * Provider.
 	 *
-	 * @var CommonEnvironmentPackageMetaProvider
+	 * @var CommonEnvironmentPackageMetaValue
 	 */
 	private $provider;
 
@@ -52,7 +52,7 @@ class CommonEnvironmentPackageMetaProviderTest extends TestCase {
 			$this->originalEnvVars[ $var ] = getenv( $var );
 			putenv( $var );
 		}
-		$this->provider = new CommonEnvironmentPackageMetaProvider();
+		$this->provider = new CommonEnvironmentPackageMetaValue();
 	}
 
 	/**

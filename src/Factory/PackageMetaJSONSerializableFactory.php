@@ -11,7 +11,7 @@ use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Plug
 use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryV1;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\Factory\JSONSerializableFactoryContract;
 use CodekaizenGithub\WPPackageDeployORAS\Parser\Slug\ParentAndFilePathSlugParser;
-use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\CommonEnvironmentPackageMetaProvider;
+use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\CommonEnvironmentPackageMetaValue;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\ThemePackageMetaProvider;
 use JsonSerializable;
@@ -100,7 +100,7 @@ class PackageMetaJSONSerializableFactory implements JSONSerializableFactoryContr
 		* @var string $filePath File Path.
 		*/
 		$slugParser          = new ParentAndFilePathSlugParser( $parentSlug, $filePath );
-		$environmentProvider = new CommonEnvironmentPackageMetaProvider();
+		$environmentProvider = new CommonEnvironmentPackageMetaValue();
 		switch ( $packageType ) {
 			case 'plugin':
 				$serviceFactory = new PluginPackageMetaValueServiceFactoryV1(
