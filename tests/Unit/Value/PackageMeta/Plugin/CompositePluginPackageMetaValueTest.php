@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Undocumented class
  */
-class PluginPackageMetaValueTest extends TestCase {
+class CompositePluginPackageMetaValueTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *
@@ -102,6 +102,126 @@ class PluginPackageMetaValueTest extends TestCase {
 		$localProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlUnexpected );
 
 		$environmentProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
+		$environmentProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableExpected );
+		$environmentProvider->shouldReceive( 'getLicense' )->with()->andReturn( $licenseExpected );
+		$environmentProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLExpected );
+		$environmentProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionExpected );
+		$environmentProvider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsExpected );
+		$environmentProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
+		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
+		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
+		$environmentProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
+		$provider = new CompositePluginPackageMetaValue( $localProvider, $environmentProvider );
+		$this->assertEquals( $nameExpected, $provider->getName() );
+		$this->assertEquals( $fullSlugExpected, $provider->getFullSlug() );
+		$this->assertEquals( $shortSlugExpected, $provider->getShortSlug() );
+		$this->assertEquals( $viewURLExpected, $provider->getViewURL() );
+		$this->assertEquals( $versionExpected, $provider->getVersion() );
+		$this->assertEquals( $shortDescriptionExpected, $provider->getShortDescription() );
+		$this->assertEquals( $authorExpected, $provider->getAuthor() );
+		$this->assertEquals( $authorURLExpected, $provider->getAuthorURL() );
+		$this->assertEquals( $textDomainExpected, $provider->getTextDomain() );
+		$this->assertEquals( $domainPathExpected, $provider->getDomainPath() );
+		$this->assertEquals( $networkExpected, $provider->getNetwork() );
+		$this->assertEquals( $requiresWordPressVersionExpected, $provider->getRequiresWordPressVersion() );
+		$this->assertEquals( $requiresPHPVersionExpected, $provider->getRequiresPHPVersion() );
+		$this->assertEquals( $downloadURLExpected, $provider->getDownloadURL() );
+		$this->assertEquals( $requiresPluginsExpected, $provider->getRequiresPlugins() );
+		$this->assertEquals( $testedExpected, $provider->getTested() );
+		$this->assertEquals( $stableExpected, $provider->getStable() );
+		$this->assertEquals( $licenseExpected, $provider->getLicense() );
+		$this->assertEquals( $licenseURLExpected, $provider->getLicenseURL() );
+		$this->assertEquals( $descriptionExpected, $provider->getDescription() );
+		$this->assertEquals( $tagsExpected, $provider->getTags() );
+		$this->assertEquals( $sectionsExpected, $provider->getSections() );
+		$this->assertEquals( $iconsExpected, $provider->getIcons() );
+		$this->assertEquals( $bannersExpected, $provider->getBanners() );
+		$this->assertEquals( $bannersRtlExpected, $provider->getBannersRTL() );
+	}
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function testTestedWPFallsBackToLocalProvider(): void {
+		$nameExpected                     = 'Test Plugin';
+		$fullSlugExpected                 = 'test-plugin/test-plugin.php';
+		$shortSlugExpected                = 'test-plugin';
+		$viewURLExpected                  = 'https://codekaizen.net';
+		$versionExpected                  = '3.0.1';
+		$shortDescriptionExpected         = 'This is a test plugin';
+		$authorExpected                   = 'Andrew Dawes';
+		$authorURLExpected                = 'https://codekaizen.net/team/andrew-dawes';
+		$textDomainExpected               = 'test-plugin';
+		$domainPathExpected               = '/languages';
+		$networkExpected                  = true;
+		$requiresWordPressVersionExpected = '6.8.2';
+		$requiresPHPVersionExpected       = '8.2.1';
+		$downloadURLExpected              = 'https://github.com/codekaizen-github/wp-package-meta-provider-local';
+		$requiresPluginsExpected          = [ 'akismet', 'hello-dolly' ];
+		$testedExpected                   = '6.8.1';
+		$testedUnexpected                 = null;
+		$stableExpected                   = '6.8.0';
+		$stableUnexpected                 = null;
+		$licenseExpected                  = 'GPL v2 or later';
+		$licenseUnexpected                = null;
+		$licenseURLExpected               = 'https://www.gnu.org/licenses/gpl-2.0.html';
+		$licenseURLUnexpected             = null;
+		$descriptionExpected              = 'This is a test description';
+		$descriptionUnexpected            = null;
+		$tagsExpected                     = [];
+		$sectionsExpected                 = [
+			'changelog' => 'changed',
+			'about'     => 'this is a plugin about section',
+		];
+		$sectionsUnexpected               = [];
+		$iconsExpected                    = [
+			'1x'  => 'https://example.com/icon-128x128.png',
+			'2x'  => 'https://example.com/icon-256x256.png',
+			'svg' => 'https://example.com/icon.svg',
+		];
+		$iconsUnexpected                  = [];
+		$bannersExpected                  = [
+			'1x' => 'https://example.com/banner-772x250.png',
+			'2x' => 'https://example.com/banner-1544x500.png',
+		];
+		$bannersUnexpected                = [];
+		$bannersRtlExpected               = [
+			'1x' => 'https://example.com/banner-rtl-772x250.png',
+			'2x' => 'https://example.com/banner-rtl-1544x500.png',
+		];
+		$bannersRtlUnexpected             = [];
+		$localProvider                    = Mockery::mock( PluginPackageMetaValueContract::class );
+		$environmentProvider              = Mockery::mock( CommonPackageMetaValueContract::class );
+		$localProvider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
+		$localProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $fullSlugExpected );
+		$localProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( $shortSlugExpected );
+		$localProvider->shouldReceive( 'getViewURL' )->with()->andReturn( $viewURLExpected );
+		$localProvider->shouldReceive( 'getVersion' )->with()->andReturn( $versionExpected );
+		$localProvider->shouldReceive( 'getShortDescription' )->with()->andReturn( $shortDescriptionExpected );
+		$localProvider->shouldReceive( 'getAuthor' )->with()->andReturn( $authorExpected );
+		$localProvider->shouldReceive( 'getAuthorURL' )->with()->andReturn( $authorURLExpected );
+		$localProvider->shouldReceive( 'getTextDomain' )->with()->andReturn( $textDomainExpected );
+		$localProvider->shouldReceive( 'getDomainPath' )->with()->andReturn( $domainPathExpected );
+		$localProvider->shouldReceive( 'getNetwork' )->with()->andReturn( $networkExpected );
+		$localProvider
+			->shouldReceive( 'getRequiresWordPressVersion' )
+			->with()
+			->andReturn( $requiresWordPressVersionExpected );
+		$localProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPHPVersionExpected );
+		$localProvider->shouldReceive( 'getRequiresPlugins' )->with()->andReturn( $requiresPluginsExpected );
+		$localProvider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
+		$localProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
+		$localProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableUnexpected );
+		$localProvider->shouldReceive( 'getLicense' )->with()->andReturn( $licenseUnexpected );
+		$localProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLUnexpected );
+		$localProvider->shouldReceive( 'getDescription' )->with()->andReturn( $descriptionUnexpected );
+		$localProvider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsUnexpected );
+		$localProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsUnexpected );
+		$localProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersUnexpected );
+		$localProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlUnexpected );
+
+		$environmentProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedUnexpected );
 		$environmentProvider->shouldReceive( 'getStable' )->with()->andReturn( $stableExpected );
 		$environmentProvider->shouldReceive( 'getLicense' )->with()->andReturn( $licenseExpected );
 		$environmentProvider->shouldReceive( 'getLicenseURL' )->with()->andReturn( $licenseURLExpected );

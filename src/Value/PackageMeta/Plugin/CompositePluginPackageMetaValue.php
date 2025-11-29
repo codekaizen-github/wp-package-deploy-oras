@@ -97,11 +97,12 @@ class CompositePluginPackageMetaValue implements PluginPackageMetaValueContract 
 	}
 	/**
 	 * Gets the WordPress version the plugin has been tested with.
+	 * Environment variable takes precedence, but falls back to any available local value.
 	 *
 	 * @return ?string Tested WordPress version or null if not available.
 	 */
 	public function getTested(): ?string {
-		return $this->environmentProvider->getTested();
+		return $this->environmentProvider->getTested() ?? $this->provider->getTested();
 	}
 	/**
 	 * Gets the stable version of the plugin.
