@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;
 
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\ThemePackageMetaValueContract;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta\CommonPackageMetaValueContract;
-use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Theme\StandardThemePackageMetaValue;
+use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Theme\CompositeThemePackageMetaValue;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
@@ -107,7 +107,7 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
 		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
 		$environmentProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
-		$provider = new StandardThemePackageMetaValue( $localProvider, $environmentProvider );
+		$provider = new CompositeThemePackageMetaValue( $localProvider, $environmentProvider );
 		$this->assertEquals( $nameExpected, $provider->getName() );
 		$this->assertEquals( $fullSlugExpected, $provider->getFullSlug() );
 		$this->assertEquals( $shortSlugExpected, $provider->getShortSlug() );
@@ -226,7 +226,7 @@ class ThemePackageMetaProviderTest extends TestCase {
 		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
 		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
 		$environmentProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
-		$provider = new StandardThemePackageMetaValue( $localProvider, $environmentProvider );
+		$provider = new CompositeThemePackageMetaValue( $localProvider, $environmentProvider );
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 		$encoded = json_encode( $provider );
 		$this->assertIsString( $encoded );

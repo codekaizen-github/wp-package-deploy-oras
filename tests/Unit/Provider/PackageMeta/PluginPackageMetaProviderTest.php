@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;
 
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta\CommonPackageMetaValueContract;
-use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Plugin\StandardPluginPackageMetaValue;
+use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Plugin\CompositePluginPackageMetaValue;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
@@ -110,7 +110,7 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
 		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
 		$environmentProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
-		$provider = new StandardPluginPackageMetaValue( $localProvider, $environmentProvider );
+		$provider = new CompositePluginPackageMetaValue( $localProvider, $environmentProvider );
 		$this->assertEquals( $nameExpected, $provider->getName() );
 		$this->assertEquals( $fullSlugExpected, $provider->getFullSlug() );
 		$this->assertEquals( $shortSlugExpected, $provider->getShortSlug() );
@@ -230,7 +230,7 @@ class PluginPackageMetaProviderTest extends TestCase {
 		$environmentProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
 		$environmentProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
 		$environmentProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadURLExpected );
-		$provider = new StandardPluginPackageMetaValue( $localProvider, $environmentProvider );
+		$provider = new CompositePluginPackageMetaValue( $localProvider, $environmentProvider );
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 		$encoded = json_encode( $provider );
 		$this->assertIsString( $encoded );

@@ -13,8 +13,8 @@ use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\ThemePackageMetaValueContract;
 use CodekaizenGithub\WPPackageDeployORAS\Factory\JSONSerializable\PackageMetaJSONSerializableFactory;
-use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Plugin\StandardPluginPackageMetaValue;
-use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Theme\StandardThemePackageMetaValue;
+use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Plugin\CompositePluginPackageMetaValue;
+use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Theme\CompositeThemePackageMetaValue;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
@@ -147,12 +147,12 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 		$this->pluginPackageMetaValue = Mockery::mock(PluginPackageMetaValueContract::class);
 		$this->themePackageMetaValue = Mockery::mock(ThemePackageMetaValueContract::class);
 		$this->pluginPackageMetaProvider = Mockery::mock(
-			'overload:CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Plugin\StandardPluginPackageMetaValue',
+			'overload:CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Plugin\CompositePluginPackageMetaValue',
 			'CodekaizenGithub\WPPackageDeployORAS\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract',
 			'JSONSerializable'
 		);
 		$this->themePackageMetaProvider = Mockery::mock(
-			'overload:CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Theme\StandardThemePackageMetaValue',
+			'overload:CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Theme\CompositeThemePackageMetaValue',
 			'CodekaizenGithub\WPPackageDeployORAS\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract',
 			'JSONSerializable'
 		);
@@ -308,7 +308,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/real.txt' );
 		$sut = new PackageMetaJSONSerializableFactory($this->getLogger());
 		$provider = $sut->create();
-		$this->assertInstanceOf(StandardPluginPackageMetaValue::class, $provider);
+		$this->assertInstanceOf(CompositePluginPackageMetaValue::class, $provider);
 	}
 
 	/**
@@ -323,7 +323,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 		putenv( 'WP_PACKAGE_HEADERS_FILE=' . FixturePathHelper::getPathForFile() . '/real.txt' );
 		$sut = new PackageMetaJSONSerializableFactory($this->getLogger());
 		$provider = $sut->create();
-		$this->assertInstanceOf(StandardThemePackageMetaValue::class, $provider);
+		$this->assertInstanceOf(CompositeThemePackageMetaValue::class, $provider);
 	}
 
 	/**
