@@ -2,10 +2,10 @@
 /**
  * Tests.
  * phpcs:ignoreFile WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv Ignoring.
- * @package CodeKaizen\WPPackageDeployORASTests\Unit\Factory
+ * @package CodeKaizen\WPPackageDeployORASTests\Unit\Factory\JSONSerializable
  */
 
-namespace CodeKaizen\WPPackageDeployORASTests\Unit\Factory;
+namespace CodeKaizen\WPPackageDeployORASTests\Unit\Factory\JSONSerializable;
 
 use CodeKaizen\WPPackageDeployORASTests\Helper\FixturePathHelper;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;

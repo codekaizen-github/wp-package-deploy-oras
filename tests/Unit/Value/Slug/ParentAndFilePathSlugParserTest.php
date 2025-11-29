@@ -2,10 +2,10 @@
 /**
  * Tests.
  *
- * @package CodeKaizen\WPPackageDeployORASTests\Unit\Parser\Slug
+ * @package CodeKaizen\WPPackageDeployORASTests\Unit\Value\Slug
  */
 
-namespace CodeKaizen\WPPackageDeployORASTests\Unit\Parser\Slug;
+namespace CodeKaizen\WPPackageDeployORASTests\Unit\Value\Slug;
 
 use CodekaizenGithub\WPPackageDeployORAS\Value\Slug\ParentAndFilePathSlugValue;
 use PHPUnit\Framework\TestCase;

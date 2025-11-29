@@ -2,10 +2,10 @@
 /**
  * Tests.
  *
- * @package CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta
+ * @package CodeKaizen\WPPackageDeployORASTests\Unit\Value\PackageMeta\Theme
  */
 
-namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;
+namespace CodeKaizen\WPPackageDeployORASTests\Unit\Value\PackageMeta\Theme;
 
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\ThemePackageMetaValueContract;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta\CommonPackageMetaValueContract;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Undocumented class
  */
-class ThemePackageMetaProviderTest extends TestCase {
+class ThemePackageMetaValueTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *

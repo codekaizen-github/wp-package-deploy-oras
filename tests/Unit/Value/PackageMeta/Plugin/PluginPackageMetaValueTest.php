@@ -2,12 +2,13 @@
 /**
  * Tests.
  *
- * @package CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta
+ * @package CodeKaizen\WPPackageDeployORASTests\Unit\Value\PackageMeta\Plugin
  */
 
-namespace CodeKaizen\WPPackageDeployORASTests\Unit\Provider\PackageMeta;
+namespace CodeKaizen\WPPackageDeployORASTests\Unit\Value\PackageMeta\Plugin;
 
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
+
 use CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta\CommonPackageMetaValueContract;
 use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Plugin\CompositePluginPackageMetaValue;
 use Mockery;
@@ -16,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Undocumented class
  */
-class PluginPackageMetaProviderTest extends TestCase {
+class PluginPackageMetaValueTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *
