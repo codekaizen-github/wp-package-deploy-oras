@@ -13,8 +13,8 @@ use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Plug
 use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Theme\StandardThemePackageMetaValueServiceFactory;
 use CodekaizenGithub\WPPackageDeployORAS\Value\Slug\ParentAndFilePathSlugValue;
 use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Common\EnvironmentCommonPackageMetaValue;
-use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider;
-use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\ThemePackageMetaProvider;
+use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Plugin\StandardPluginPackageMetaValue;
+use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Theme\StandardThemePackageMetaValue;
 use JsonSerializable;
 use Psr\Log\LoggerInterface;
 use Respect\Validation\Exceptions\ValidationException;
@@ -111,7 +111,7 @@ class PackageMetaJSONSerializableFactory {
 				);
 				$service        = $serviceFactory->create();
 				$value          = $service->getPackageMeta();
-				return new PluginPackageMetaProvider( $value, $environmentProvider );
+				return new StandardPluginPackageMetaValue( $value, $environmentProvider );
 			case 'theme':
 				$serviceFactory = new StandardThemePackageMetaValueServiceFactory(
 					$filePath,
@@ -120,7 +120,7 @@ class PackageMetaJSONSerializableFactory {
 				);
 				$service        = $serviceFactory->create();
 				$value          = $service->getPackageMeta();
-				return new ThemePackageMetaProvider( $value, $environmentProvider );
+				return new StandardThemePackageMetaValue( $value, $environmentProvider );
 			default:
 				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception message not displayed to end users.
 				throw new UnexpectedValueException( 'Unexpected package type: ' . $packageType );

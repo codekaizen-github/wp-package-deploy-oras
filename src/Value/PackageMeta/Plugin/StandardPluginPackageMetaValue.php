@@ -2,10 +2,10 @@
 /**
  * Unknown.
  *
- * @package  CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta
+ * @package  CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Plugin
  */
 
-namespace CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta;
+namespace CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Plugin;
 
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta\CommonPackageMetaValueContract;
@@ -17,7 +17,7 @@ use CodekaizenGithub\WPPackageDeployORAS\Contract\Value\PackageMeta\CommonPackag
  *
  * @since 1.0.0
  */
-class PluginPackageMetaProvider implements PluginPackageMetaValueContract {
+class StandardPluginPackageMetaValue implements PluginPackageMetaValueContract {
 
 	/**
 	 *
