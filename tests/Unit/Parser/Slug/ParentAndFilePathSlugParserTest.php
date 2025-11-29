@@ -7,13 +7,13 @@
 
 namespace CodeKaizen\WPPackageDeployORASTests\Unit\Parser\Slug;
 
-use CodekaizenGithub\WPPackageDeployORAS\Parser\Slug\ParentAndFilePathSlugParser;
+use CodekaizenGithub\WPPackageDeployORAS\Value\Slug\ParentAndFilePathSlugValue;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Undocumented class
  */
-class ParentAndFilePathSlugParserTest extends TestCase {
+class ParentAndFilePathSlugValueTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *
@@ -24,7 +24,7 @@ class ParentAndFilePathSlugParserTest extends TestCase {
 		$packageFilePath   = './my-plugin-file.php';
 		$fullSlugExpected  = 'my-plugin-folder/my-plugin-file.php';
 		$shortSlugExpected = 'my-plugin-folder';
-		$sut               = new ParentAndFilePathSlugParser( $parentSlug, $packageFilePath );
+		$sut               = new ParentAndFilePathSlugValue( $parentSlug, $packageFilePath );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 	}
@@ -38,7 +38,7 @@ class ParentAndFilePathSlugParserTest extends TestCase {
 		$packageFilePath   = './style.css';
 		$fullSlugExpected  = 'my-theme-folder/style.css';
 		$shortSlugExpected = 'my-theme-folder';
-		$sut               = new ParentAndFilePathSlugParser( $parentSlug, $packageFilePath );
+		$sut               = new ParentAndFilePathSlugValue( $parentSlug, $packageFilePath );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 	}
@@ -52,7 +52,7 @@ class ParentAndFilePathSlugParserTest extends TestCase {
 		$packageFilePath   = '/path/to/my-plugin-folder/my-plugin-file.php';
 		$fullSlugExpected  = 'my-plugin-folder/my-plugin-file.php';
 		$shortSlugExpected = 'my-plugin-folder';
-		$sut               = new ParentAndFilePathSlugParser( $parentSlug, $packageFilePath );
+		$sut               = new ParentAndFilePathSlugValue( $parentSlug, $packageFilePath );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 	}
@@ -66,7 +66,7 @@ class ParentAndFilePathSlugParserTest extends TestCase {
 		$packageFilePath   = '/path/to/my-theme-folder/style.css';
 		$fullSlugExpected  = 'my-theme-folder/style.css';
 		$shortSlugExpected = 'my-theme-folder';
-		$sut               = new ParentAndFilePathSlugParser( $parentSlug, $packageFilePath );
+		$sut               = new ParentAndFilePathSlugValue( $parentSlug, $packageFilePath );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 	}

@@ -5,14 +5,14 @@
  * @package CodekaizenGithub\WPPackageDeployORAS\Parser\Slug
  */
 
-namespace CodekaizenGithub\WPPackageDeployORAS\Parser\Slug;
+namespace CodekaizenGithub\WPPackageDeployORAS\Value\Slug;
 
 use CodeKaizen\WPPackageMetaProviderLocal\Contract\Value\SlugValueContract;
 
 /**
  * Undocumented class
  */
-class ParentAndFilePathSlugParser implements SlugValueContract {
+class ParentAndFilePathSlugValue implements SlugValueContract {
 	/**
 	 * Undocumented variable
 	 *

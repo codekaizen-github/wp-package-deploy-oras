@@ -129,7 +129,7 @@ class PackageMetaJSONSerializableFactoryTest extends TestCase {
 			putenv( $var );
 		}
 		$this->slugValue = Mockery::mock(
-			'overload:CodekaizenGithub\WPPackageDeployORAS\Parser\Slug\ParentAndFilePathSlugParser',
+			'overload:CodekaizenGithub\WPPackageDeployORAS\Value\Slug\ParentAndFilePathSlugValue',
 			'CodeKaizen\WPPackageMetaProviderLocal\Contract\Value\SlugValueContract'
 		);
 		$this->environmentProvider = Mockery::mock(

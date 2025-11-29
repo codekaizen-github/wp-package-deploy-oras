@@ -11,7 +11,7 @@ namespace CodekaizenGithub\WPPackageDeployORAS\Factory\JSONSerializable;
 use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Plugin\StandardPluginPackageMetaValueServiceFactory;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Theme\StandardThemePackageMetaValueServiceFactory;
-use CodekaizenGithub\WPPackageDeployORAS\Parser\Slug\ParentAndFilePathSlugParser;
+use CodekaizenGithub\WPPackageDeployORAS\Value\Slug\ParentAndFilePathSlugValue;
 use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Common\EnvironmentCommonPackageMetaValue;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\ThemePackageMetaProvider;
@@ -100,7 +100,7 @@ class PackageMetaJSONSerializableFactory {
 		*
 		* @var string $filePath File Path.
 		*/
-		$slugParser          = new ParentAndFilePathSlugParser( $parentSlug, $filePath );
+		$slugParser          = new ParentAndFilePathSlugValue( $parentSlug, $filePath );
 		$environmentProvider = new EnvironmentCommonPackageMetaValue();
 		switch ( $packageType ) {
 			case 'plugin':
