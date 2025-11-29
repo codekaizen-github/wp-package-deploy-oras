@@ -7,9 +7,10 @@
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Factory;
 
-use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryV1;
-use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryV1;
-use CodekaizenGithub\WPPackageDeployORAS\Contract\Factory\JSONSerializableFactoryContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Plugin\StandardPluginPackageMetaValueServiceFactory;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Theme\StandardThemePackageMetaValueServiceFactory;
 use CodekaizenGithub\WPPackageDeployORAS\Parser\Slug\ParentAndFilePathSlugParser;
 use CodekaizenGithub\WPPackageDeployORAS\Value\PackageMeta\Common\EnvironmentCommonPackageMetaValue;
 use CodekaizenGithub\WPPackageDeployORAS\Provider\PackageMeta\PluginPackageMetaProvider;
@@ -24,7 +25,7 @@ use UnexpectedValueException;
 /**
  * Undocumented class
  */
-class PackageMetaJSONSerializableFactory implements JSONSerializableFactoryContract {
+class PackageMetaJSONSerializableFactory {
 	/**
 	 * Undocumented variable
 	 *
@@ -103,7 +104,7 @@ class PackageMetaJSONSerializableFactory implements JSONSerializableFactoryContr
 		$environmentProvider = new EnvironmentCommonPackageMetaValue();
 		switch ( $packageType ) {
 			case 'plugin':
-				$serviceFactory = new PluginPackageMetaValueServiceFactoryV1(
+				$serviceFactory = new StandardPluginPackageMetaValueServiceFactory(
 					$filePath,
 					$slugParser,
 					$this->logger
@@ -112,7 +113,7 @@ class PackageMetaJSONSerializableFactory implements JSONSerializableFactoryContr
 				$value          = $service->getPackageMeta();
 				return new PluginPackageMetaProvider( $value, $environmentProvider );
 			case 'theme':
-				$serviceFactory = new ThemePackageMetaValueServiceFactoryV1(
+				$serviceFactory = new StandardThemePackageMetaValueServiceFactory(
 					$filePath,
 					$slugParser,
 					$this->logger

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42ae80fef050073aacfc104052eb95db",
+    "content-hash": "fc3b5883d879ba40a98ddf2a9615dc7e",
     "packages": [
         {
             "name": "codekaizen/wp-package-meta-provider-contract",
@@ -52,16 +52,16 @@
         },
         {
             "name": "codekaizen/wp-package-meta-provider-local",
-            "version": "2.0.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codekaizen-github/wp-package-meta-provider-local.git",
-                "reference": "f893c1a053c94deaed5fc6c06346b43aa000d67a"
+                "reference": "3efe51fe5e4b79e6e0845940c0c9b2354f00aaca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-local/zipball/f893c1a053c94deaed5fc6c06346b43aa000d67a",
-                "reference": "f893c1a053c94deaed5fc6c06346b43aa000d67a",
+                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-local/zipball/3efe51fe5e4b79e6e0845940c0c9b2354f00aaca",
+                "reference": "3efe51fe5e4b79e6e0845940c0c9b2354f00aaca",
                 "shasum": ""
             },
             "require": {
@@ -96,9 +96,9 @@
             ],
             "support": {
                 "issues": "https://github.com/codekaizen-github/wp-package-meta-provider-local/issues",
-                "source": "https://github.com/codekaizen-github/wp-package-meta-provider-local/tree/2.0.0"
+                "source": "https://github.com/codekaizen-github/wp-package-meta-provider-local/tree/3.0.0"
             },
-            "time": "2025-11-25T22:43:14+00:00"
+            "time": "2025-11-29T16:30:16+00:00"
         },
         {
             "name": "monolog/monolog",
