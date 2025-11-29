@@ -7,7 +7,7 @@
 
 namespace CodekaizenGithub\WPPackageDeployORAS\Script;
 
-use CodekaizenGithub\WPPackageDeployORAS\Factory\PackageMetaJSONSerializableFactory;
+use CodekaizenGithub\WPPackageDeployORAS\Factory\JSONSerializable\PackageMetaJSONSerializableFactory;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use Monolog\Logger;

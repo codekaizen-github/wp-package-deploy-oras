@@ -5,7 +5,7 @@
  * @package CodekaizenGithub\WPPackageDeployORAS\Factory
  */
 
-namespace CodekaizenGithub\WPPackageDeployORAS\Factory;
+namespace CodekaizenGithub\WPPackageDeployORAS\Factory\JSONSerializable;
 
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Plugin\StandardPluginPackageMetaValueServiceFactory;
