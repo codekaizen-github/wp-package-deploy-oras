@@ -3,3 +3,5 @@
 plugin.zip
 test
 .phpunit.result.cache
+clover.xml
+coverage-report

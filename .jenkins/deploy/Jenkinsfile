@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     environment {
         GHCR_REGISTRY = 'ghcr.io' // GitHub Container Registry
         GHCR_USER = 'ASDFASDF' // This can technically be anything. The GitHub PAT is what actually authenticates to GHCR.
@@ -30,6 +30,10 @@ pipeline {
                             sh "composer run analyze"
                             sh "composer run test"
                             sh "composer run sniff"
+                            sh "composer run cover-php"
+                            recordCoverage(name: "Code Coverage: PHP ${PHP_VERSION}", tools: [[parser: 'CLOVER', pattern: 'clover.xml']],
+                                sourceCodeRetention: 'MODIFIED',
+                            )
                         }
                     }
                 }
