@@ -49,14 +49,14 @@
                 "koverage.coverageCommand": "composer run cover-php",
                 "koverage.lowCoverageThreshold": 50,
                 "koverage.sufficientCoverageThreshold": 90,
-                "livePreview.defaultPreviewPath": "/coverage-report/index.html"
+                "livePreview.defaultPreviewPath": "coverage-report/index.html"
             }
         }
     },
     "postAttachCommand": {
         "gitSafeDirectory": "git config --global --add safe.directory /wp-package-deploy-oras;",
         "gitHooks": "git config core.hooksPath .githooks;"
-    },
+    }
     // Features to add to the dev container. More info: https://containers.dev/features.
     // "features": {},
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
