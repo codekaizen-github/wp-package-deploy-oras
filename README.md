@@ -19,6 +19,7 @@ A tool to deploy WordPress plugins or themes to OCI-compatible registries using 
 
 ### Optional Environment Variables
 
+- **IMAGE_SOURCE_URL**: Web URL of the source repository the package was built from (e.g. `https://github.com/username/my-plugin`, `https://gitlab.com/username/my-plugin`, `https://git.example.com/username/my-plugin`). Pushed as the standard `org.opencontainers.image.source` annotation. Registries that read it, such as GitHub Container Registry, use it to link the published package to its repository; omit it and no source annotation is written
 - **META_ANNOTATION_KEY**: Prefix for annotation keys (default: `org.codekaizen-github.wp-package-deploy-oras`)
 - **PHP_MEMORY_LIMIT**: Memory limit for PHP when parsing package metadata (default: `512M`)
 - **WP_PACKAGE_PATH**: Directory where the WordPress package is located - defaults to current working directory (`/package` in the Docker container)
