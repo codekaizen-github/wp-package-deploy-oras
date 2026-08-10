@@ -85,10 +85,19 @@ FULL_IMAGE_NAME="${IMAGE_REGISTRY_HOSTNAME}/${IMAGE_REPOSITORY}:${IMAGE_TAG}"
 # Login to registry
 oras login --username "$IMAGE_REGISTRY_USERNAME" --password "$IMAGE_REGISTRY_PASSWORD" "$IMAGE_REGISTRY_HOSTNAME"
 
+ORAS_ANNOTATIONS=(--annotation "$META_ANNOTATION_KEY=$PACKAGE_METADATA")
+
+# Standard OCI annotation. Registries that support it (GitHub Container Registry,
+# GitLab, Harbor, ...) use it to associate the artifact with its source repository.
+# The caller supplies the URL so no particular repository host is assumed.
+if [ -n "${IMAGE_SOURCE_URL:-}" ]; then
+    ORAS_ANNOTATIONS+=(--annotation "org.opencontainers.image.source=${IMAGE_SOURCE_URL}")
+fi
+
 # Change to the directory containing the zip file
 pushd "$PACKAGE_ZIP_DIR" >/dev/null
 # Push the zip file with annotations using only the filename (relative path)
 oras push "$FULL_IMAGE_NAME" \
     "${PACKAGE_ZIP_NAME}:application/zip" \
-    --annotation "$META_ANNOTATION_KEY=$PACKAGE_METADATA"
+    "${ORAS_ANNOTATIONS[@]}"
 popd >/dev/null
