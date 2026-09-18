@@ -357,29 +357,33 @@ class EnvironmentCommonPackageMetaValue implements CommonPackageMetaValueContrac
 	/**
 	 * Gets the URL to download the package from ORAS registry.
 	 *
+	 * Built as {ORASHUB_BASE_URL}/api/v1/{registry}/{repository}/{tag}/download/.
+	 * Registry/repository default to IMAGE_REGISTRY_HOSTNAME / IMAGE_REPOSITORY
+	 * (the push target). Tag is always IMAGE_TAG (same tag that was pushed).
+	 * Optional ORASHUB_DOWNLOAD_REGISTRY and ORASHUB_DOWNLOAD_REPOSITORY override
+	 * those path segments when the client-facing ORASHub route differs from the
+	 * OCI push coordinates (e.g. a named registry alias + owner/repo).
+	 *
 	 * @return string|null The download URL for the package or null if environment variables are not set.
 	 * @throws UnexpectedValueException If environment variables are configured but invalid.
 	 */
 	public function getDownloadURL(): ?string {
-		$requiredVars = [
-			'ORASHUB_BASE_URL',
-			'IMAGE_REGISTRY_HOSTNAME',
-			'IMAGE_REPOSITORY',
-			'IMAGE_TAG',
-		];
+		$baseUrl = getenv( 'ORASHUB_BASE_URL' );
+		$tag     = getenv( 'IMAGE_TAG' );
 
-		// Check if all required variables are set.
-		foreach ( $requiredVars as $var ) {
-			if ( false === getenv( $var ) ) {
-				return null;
-			}
+		$downloadRegistry = getenv( 'ORASHUB_DOWNLOAD_REGISTRY' );
+		$registry         = ( false !== $downloadRegistry && '' !== $downloadRegistry )
+			? $downloadRegistry
+			: getenv( 'IMAGE_REGISTRY_HOSTNAME' );
+
+		$downloadRepository = getenv( 'ORASHUB_DOWNLOAD_REPOSITORY' );
+		$repository         = ( false !== $downloadRepository && '' !== $downloadRepository )
+			? $downloadRepository
+			: getenv( 'IMAGE_REPOSITORY' );
+
+		if ( false === $baseUrl || false === $registry || false === $repository || false === $tag ) {
+			return null;
 		}
-
-		// Get and validate each variable.
-		$baseUrl    = getenv( 'ORASHUB_BASE_URL' );
-		$registry   = getenv( 'IMAGE_REGISTRY_HOSTNAME' );
-		$repository = getenv( 'IMAGE_REPOSITORY' );
-		$tag        = getenv( 'IMAGE_TAG' );
 
 		try {
 			// Validate base URL.
@@ -411,9 +415,9 @@ class EnvironmentCommonPackageMetaValue implements CommonPackageMetaValueContrac
 		 * @var string $repository
 		 * @var string $tag
 		 */
-		// Construct download URL using the template format.
+		// Construct download URL using the template format (trailing slash for ORASHub routes).
 		return rtrim( $baseUrl, '/' ) . '/api/v1/' .
 			implode( '/', [ $registry, $repository, $tag ] ) .
-			'/download';
+			'/download/';
 	}
 }

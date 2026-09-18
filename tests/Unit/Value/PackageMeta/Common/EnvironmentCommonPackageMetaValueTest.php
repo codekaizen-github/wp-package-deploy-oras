@@ -44,6 +44,8 @@ class EnvironmentCommonPackageMetaValueTest extends TestCase {
 			'WP_PACKAGE_BANNERS',
 			'WP_PACKAGE_BANNERS_RTL',
 			'ORASHUB_BASE_URL',
+			'ORASHUB_DOWNLOAD_REGISTRY',
+			'ORASHUB_DOWNLOAD_REPOSITORY',
 			'IMAGE_REGISTRY_HOSTNAME',
 			'IMAGE_REPOSITORY',
 			'IMAGE_TAG',
@@ -194,7 +196,7 @@ class EnvironmentCommonPackageMetaValueTest extends TestCase {
 		putenv( 'IMAGE_REPOSITORY=my-repo' );
 		putenv( 'IMAGE_TAG=1.0.0' );
 
-		$expectedUrl = 'https://orashub.example.com/api/v1/my-registry/my-repo/1.0.0/download';
+		$expectedUrl = 'https://orashub.example.com/api/v1/my-registry/my-repo/1.0.0/download/';
 		$this->assertEquals( $expectedUrl, $this->provider->getDownloadURL() );
 
 		// Test with trailing slash in base URL
@@ -233,5 +235,20 @@ class EnvironmentCommonPackageMetaValueTest extends TestCase {
 		putenv( 'IMAGE_TAG=1.0.0' );
 		$this->expectException( UnexpectedValueException::class );
 		$this->provider->getDownloadURL();
+	}
+
+	/**
+	 * Test ORASHUB_DOWNLOAD_* path overrides for client-facing routes.
+	 */
+	public function testDownloadUrlPathOverrides(): void {
+		putenv( 'ORASHUB_BASE_URL=https://orashub.example.com' );
+		putenv( 'IMAGE_REGISTRY_HOSTNAME=push.example.com' );
+		putenv( 'IMAGE_REPOSITORY=project/repo/owner/name' );
+		putenv( 'IMAGE_TAG=1.0.0' );
+		putenv( 'ORASHUB_DOWNLOAD_REGISTRY=alias' );
+		putenv( 'ORASHUB_DOWNLOAD_REPOSITORY=owner/name' );
+
+		$expectedUrl = 'https://orashub.example.com/api/v1/alias/owner/name/1.0.0/download/';
+		$this->assertEquals( $expectedUrl, $this->provider->getDownloadURL() );
 	}
 }
